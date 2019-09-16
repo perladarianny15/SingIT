@@ -5,12 +5,12 @@ using Xamarin.Forms;
 
 namespace SINGIT.Views
 {
-    public partial class RegisterPage : ContentPage
+    public partial class UserLoginPage : ContentPage
     {
-        public RegisterPage()
+        public UserLoginPage()
         {
             InitializeComponent();
-            BindingContext = new RegisterPageViewModel();
+            BindingContext = new LoginPageViewModel();
         }
     }
 }

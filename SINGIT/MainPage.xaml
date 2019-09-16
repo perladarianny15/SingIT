@@ -4,11 +4,11 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-            xmlns:local="clr-namespace:SINGIT.Views"
+            xmlns:local="clr-namespace:SINGIT.Views" BarBackgroundColor="#0a0aa3"
             x:Class="SINGIT.MainPage">
     <TabbedPage.Children>
-        <local:RegisterPage IconImageSource="Login.png" Title="Login"/>
-        <local:LoginPage IconImageSource="Register.png" Title="Register"/>
+        <local:UserLoginPage IconImageSource="Login.png" Title="Login" />
+        <local:RegisterPage IconImageSource="Register.png" Title="Register"/>
     </TabbedPage.Children>
 
 </TabbedPage>

@@ -10,7 +10,7 @@ namespace SINGIT
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new NavigationPage(new MainPage() { BarTextColor = Color.Black }) { BarBackgroundColor = Color.FromRgb(10, 10, 163) };
         }
 
         protected override void OnStart()
