@@ -1,31 +1,36 @@
 ﻿using System;
+using Prism;
+using Prism.Ioc;
+using Prism.Unity;
+using SINGIT.ViewModels;
+using SINGIT.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using SINGIT.NavigationConstants;
 
 namespace SINGIT
 {
-    public partial class App : Application
+    public partial class App : PrismApplication
     {
-        public App()
+        public App(IPlatformInitializer initializer = null) : base(initializer) { }
+
+        protected override void OnInitialized()
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new MainPage() { BarTextColor = Color.Black }) { BarBackgroundColor = Color.FromRgb(10, 10, 163) };
+            NavigationService.NavigateAsync(NavigationConstants.NavigationConstants.Main);
         }
 
-        protected override void OnStart()
+        protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            // Handle when your app starts
-        }
+            containerRegistry.RegisterForNavigation<NavigationPage>();
+            containerRegistry.RegisterForNavigation<TabbedPage>();
+            containerRegistry.RegisterForNavigation<MainPage, AccountViewModel>();
+            containerRegistry.RegisterForNavigation<LoginPage, AccountViewModel>();
+            containerRegistry.RegisterForNavigation<HomePage, HomePageViewModel>();
+            containerRegistry.RegisterForNavigation<RegisterPage, RegisterPageViewModel>();
 
-        protected override void OnSleep()
-        {
-            // Handle when your app sleeps
-        }
-
-        protected override void OnResume()
-        {
-            // Handle when your app resumes
+            // containerRegistry.RegisterInstance<IApiService>(new ApiService());
         }
     }
 }

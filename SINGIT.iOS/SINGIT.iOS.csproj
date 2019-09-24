@@ -130,6 +130,9 @@
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="4.1.0.555618" />
     <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
+    <PackageReference Include="Prism.Unity.Forms">
+      <Version>7.2.0.1367</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
@@ -141,10 +144,19 @@
   <ItemGroup>
     <BundleResource Include="Resources\Register.png" />
     <BundleResource Include="Resources\Login.png" />
-    <BundleResource Include="Resources\logo.png" />
     <BundleResource Include="Resources\User.png" />
     <BundleResource Include="Resources\Password.png" />
     <BundleResource Include="Resources\Email.png" />
     <BundleResource Include="Resources\Phone.png" />
+    <BundleResource Include="Resources\lista.png" />
+    <BundleResource Include="Resources\Back.jpg" />
+    <BundleResource Include="Resources\logopicture.png" />
+    <BundleResource Include="Resources\logout.png" />
+    <BundleResource Include="Resources\music.png" />
+    <BundleResource Include="Resources\favorite.png" />
+    <BundleResource Include="Resources\info.png" />
+    <BundleResource Include="Resources\search.png" />
+    <BundleResource Include="Resources\album.png" />
+    <BundleResource Include="Resources\home.png" />
   </ItemGroup>
 </Project>
