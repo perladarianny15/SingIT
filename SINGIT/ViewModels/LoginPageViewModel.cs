@@ -62,7 +62,7 @@ namespace SINGIT.ViewModels
 
         async Task ToHomePage()
         {
-            await _navigationService.NavigateAsync(NavigationConstants.NavigationConstants.Home);
+            await _navigationService.NavigateAsync(new Uri(NavigationConstants.NavigationConstants.Home, UriKind.Absolute));
         }
 
         async Task LoginValidations(LoginModel login)
