@@ -5,11 +5,12 @@ using Xamarin.Forms;
 
 namespace SINGIT.Views
 {
-    public partial class RegisterPage : ContentPage
+    public partial class HomePage : TabbedPage
     {
-        public RegisterPage()
+        public HomePage()
         {
             InitializeComponent();
         }
     }
+    
 }

@@ -2,32 +2,32 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="SINGIT.Views.RegisterPage">
+    x:Class="SINGIT.Views.RegisterPage" BackgroundImageSource="Back.jpg">
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="CenterAndExpand">
-                <Image Source="logo.png" WidthRequest="280" HeightRequest="280"/>
+            <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="CenterAndExpand" Margin="20">
+                <Image Source="logopicture.png" WidthRequest="100" HeightRequest="100" Margin="50" Aspect="AspectFit"/>
                 <StackLayout Grid.Row="1" Orientation="Horizontal" Padding="10">
                      <Image Source="User.png"/>
-                     <Entry Placeholder="UserName" Text="{Binding register.UserName}" WidthRequest="250"/>
+                     <Entry Placeholder="UserName" Text="{Binding registerModel.UserName}" WidthRequest="230" Margin="5" BackgroundColor="Transparent"/>
                 </StackLayout>
-                <StackLayout Grid.Row="1" Orientation="Horizontal" Padding="10">
+                <StackLayout Grid.Row="1" Orientation="Horizontal" Padding="5">
                     <Image Source="Password.png"></Image>
-                    <Entry Placeholder="Password" Text="{Binding register.Password}" WidthRequest="250" IsPassword="True"/>
+                    <Entry Placeholder="Password" Text="{Binding registerModel.Password}" WidthRequest="230" IsPassword="True" Margin="5" BackgroundColor="Transparent"/>
                 </StackLayout>
-                <StackLayout Grid.Row="0" Orientation="Horizontal" Padding="10" TranslationX="40">
-                    <Entry Placeholder="Confirm Password" Text="{Binding ConfirmPassword}" WidthRequest="250" IsPassword="True"/>
+                <StackLayout Grid.Row="0" Orientation="Horizontal" Padding="5" TranslationX="40">
+                    <Entry Placeholder="Confirm Password" Text="{Binding ConfirmPassword}" WidthRequest="230" IsPassword="True" Margin="5" BackgroundColor="Transparent"/>
                 </StackLayout>
-                <StackLayout Grid.Row="1" Orientation="Horizontal" Padding="10">
+                <StackLayout Grid.Row="1" Orientation="Horizontal" Padding="5">
                     <Image Source="Email.png"></Image>
-                    <Entry Placeholder="Email" Text="{Binding register.Email}" WidthRequest="250" TranslationX="05"/>
+                    <Entry Placeholder="Email" Text="{Binding registerModel.Email}" WidthRequest="230" Keyboard="Email" Margin="5" BackgroundColor="Transparent"/>
                 </StackLayout>
-                <StackLayout Grid.Row="1" Orientation="Horizontal" Padding="10">
+                <StackLayout Grid.Row="1" Orientation="Horizontal" Padding="5">
                     <Image Source="Phone.png"></Image>
-                    <Entry Placeholder="Number" Text="{Binding register.Number}" WidthRequest="250" TranslationX="05"/>
+                    <Entry Placeholder="Number" Text="{Binding registerModelw.Number}" WidthRequest="230" Keyboard="Telephone" Margin="5" BackgroundColor="Transparent"/>
                 </StackLayout>
-                <StackLayout>
-                     <Button TextColor="White" BackgroundColor="#0a0aa3" Command="{Binding SaveRegisterCommand}" Text="Register" VerticalOptions="CenterAndExpand"/>
+                <StackLayout Margin="15">
+                     <Button TextColor="White" BackgroundColor="#630a8c" Command="{Binding SaveRegisterCommand}" Text="Register" VerticalOptions="CenterAndExpand"/>
 
                     <Label Text="{Binding Result, Mode=TwoWay}" TextColor="red" HorizontalOptions="CenterAndExpand"/>
                 </StackLayout>
