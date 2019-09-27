@@ -50,7 +50,7 @@ namespace SINGIT.ViewModels
             }
             catch (Exception ex)
             {
-               Application.Current.MainPage.DisplayAlert(ErrorCodes.Error, ex.Message, ErrorCodes.Cancel);
+                pageDialogService.DisplayAlertAsync(ErrorCodes.Error, ex.Message, ErrorCodes.Cancel);
             }
         }
 
