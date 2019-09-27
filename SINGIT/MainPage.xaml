@@ -1,24 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-            BackgroundImageSource="Back.jpg"
+            xmlns:local="clr-namespace:SINGIT.Views" BarBackgroundColor="#0a0aa3"
             x:Class="SINGIT.MainPage">
-    <ScrollView>
-        <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="CenterAndExpand">
-            <Image Source="logopicture.png" WidthRequest="100" HeightRequest="100" Aspect="AspectFit" Margin="30"/>
-            <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-                <Label Text="GET ALL THE LYRICS OF THE SONGS BY FREE"
-                       TextColor="White" FontAttributes="Bold" FontSize="Title" Margin="45"/>
-                
-                <Button BackgroundColor="#b74de8" TextColor="white" Text="Login" Padding="10" Margin="20" Command="{Binding ToLoginPageCommand}"/>
-                <Button BackgroundColor="#630a8c" TextColor="white" Text="Register by free" Padding="10" Margin="15" Command="{Binding ToRegisterPageCommand}"/>
-            </StackLayout>
-            <StackLayout>
-            </StackLayout>
+    <TabbedPage.Children>
+        <local:UserLoginPage IconImageSource="Login.png" Title="Login" />
+        <local:RegisterPage IconImageSource="Register.png" Title="Register"/>
+    </TabbedPage.Children>
 
-        </StackLayout>
-</ScrollView>
-</ContentPage>
+</TabbedPage>

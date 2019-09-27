@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="SINGIT.Views.UserLoginPage">
+     <ScrollView>
+        <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="CenterAndExpand">
+            <Image Source="logo.png" WidthRequest="350" HeightRequest="350" />
+
+            <StackLayout Grid.Row="1" Orientation="Horizontal" Padding="20" TranslationX="05">
+                 <Image Source="User.png"/>
+                 <Entry Placeholder="UserName" Text="{Binding login.UserName}" WidthRequest="250" TranslationX="10"/>
+            </StackLayout>
+            <StackLayout Grid.Row="1" Orientation="Horizontal" Padding="20" TranslationX="05">
+                <Image Source="Password.png"></Image>
+                <Entry Placeholder="Password" Text="{Binding login.Password}" WidthRequest="250" TranslationX="10" IsPassword="True"/>
+            </StackLayout>
+            <StackLayout>
+               <Button TextColor="White" BackgroundColor="#0a0aa3" Command="{Binding SaveLoginCommand}" Text="Login" VerticalOptions="CenterAndExpand" Margin="10"/>
+               <Button TextColor="Blue" Text="Haven't an account yet?" VerticalOptions="CenterAndExpand" Command="{Binding ToRegisterPage}" />
+               <Label Text="{Binding Result, Mode=TwoWay}" TextColor="red" VerticalOptions="CenterAndExpand" FontAttributes="Bold" FontSize="Header"/>
+
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+
+</ContentPage>

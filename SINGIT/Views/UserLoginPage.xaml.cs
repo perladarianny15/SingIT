@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using SINGIT.ViewModels;
 using Xamarin.Forms;
 
 namespace SINGIT.Views
 {
-    public partial class BibliotecPage : ContentPage
+    public partial class UserLoginPage : ContentPage
     {
-        public BibliotecPage()
+        public UserLoginPage()
         {
             InitializeComponent();
+            BindingContext = new LoginPageViewModel();
         }
     }
 }

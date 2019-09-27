@@ -10,6 +10,7 @@ namespace SINGIT.Views
         public RegisterPage()
         {
             InitializeComponent();
+            BindingContext = new RegisterPageViewModel();
         }
     }
 }

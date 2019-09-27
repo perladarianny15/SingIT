@@ -1,11 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using Prism.Commands;
-using Prism.Events;
-using Prism.Navigation;
-using Prism.Services;
 using SINGIT.Helper;
 using SINGIT.Models;
 using SINGIT.Views;
@@ -14,76 +9,53 @@ using Xamarin.Forms;
 
 namespace SINGIT.ViewModels
 {
-    public class LoginPageViewModel : INotifyPropertyChanged , IInitialize
+    public class LoginPageViewModel : INotifyPropertyChanged
     {
-        public DelegateCommand SaveLoginCommand { get; set; }
-        public DelegateCommand ToRegisterPageCommand { get; set; }
-        protected INavigationService _navigationService;
-        public LoginModel loginModel { get; set; }
+        public ICommand SaveLoginCommand { get; set; }
+        public ICommand ToRegisterPage { get; set; }
+        public LoginModel login { get; set; }
         public string Result { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public LoginPageViewModel(INavigationService navigationService, IPageDialogService pageDialogService)
+        public LoginPageViewModel()
         {
-            _navigationService = navigationService;
-
-            loginModel = new LoginModel();
+            login = new LoginModel();
 
             try
             {
-                SaveLoginCommand = new DelegateCommand(async () =>
+                SaveLoginCommand = new Command(async () =>
                 {
                     if (ConnectionValidation.HaveInternetConnection())
                     {
-                        await LoginValidations(loginModel);
+                        if (!UserValidations.IsnotEmpty(login.UserName))
+                        {
+                            Result = "El nombre de usuario es requerido";
+                        }
+                        else if (!UserValidations.IsnotEmpty(login.Password))
+                        {
+                            Result = "La contraseña es requerida.";
+                        }
+                        else
+                        {
+                            //await Application.Current.MainPage.Navigation.PushModalAsync(new NavigationPage(new ContactListPage() { BackgroundColor = Color.CadetBlue }));
+
+                        }
                     }
                     else
-                        await pageDialogService.DisplayAlertAsync(ErrorCodes.Error, ErrorCodes.NoInternet, ErrorCodes.Cancel);
+                        await Application.Current.MainPage.DisplayAlert("Error", "No tiene conexion a internet", "Cancel");
 
                 });
 
-                ToRegisterPageCommand = new DelegateCommand(async () =>
+                ToRegisterPage = new Command(async () =>
                 {
-                    await ToRegisterPage();
+                    await Application.Current.MainPage.Navigation.PushAsync(new RegisterPage());
 
                 });
             }
             catch (Exception ex)
             {
-               Application.Current.MainPage.DisplayAlert(ErrorCodes.Error, ex.Message, ErrorCodes.Cancel);
+               Application.Current.MainPage.DisplayAlert("Error", ex.Message, "Cancel");
             }
-        }
-
-        async Task ToRegisterPage()
-        {
-            await _navigationService.NavigateAsync(NavigationConstants.NavigationConstants.Register);
-
-        }
-
-        async Task ToHomePage()
-        {
-            await _navigationService.NavigateAsync(NavigationConstants.NavigationConstants.Home);
-        }
-
-        async Task LoginValidations(LoginModel login)
-        {
-            if (!UserValidations.IsnotEmpty(login.UserName))
-            {
-                Result = ErrorCodes.UserNameRequired;
-            }
-            else if (!UserValidations.IsnotEmpty(login.Password))
-            {
-                Result = ErrorCodes.PasswordRequired;
-            }
-            else
-            {
-                await ToHomePage();
-            }
-
-        }
-        public void Initialize(INavigationParameters parameters)
-        {
-            throw new NotImplementedException();
         }
     }
 }
