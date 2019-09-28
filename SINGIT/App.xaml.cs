@@ -19,6 +19,7 @@ namespace SINGIT
             InitializeComponent();
 
             NavigationService.NavigateAsync(NavigationConstants.NavigationConstants.Main);
+            
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -29,6 +30,7 @@ namespace SINGIT
             containerRegistry.RegisterForNavigation<LoginPage, AccountViewModel>();
             containerRegistry.RegisterForNavigation<HomePage, HomePageViewModel>();
             containerRegistry.RegisterForNavigation<RegisterPage, RegisterPageViewModel>();
+            containerRegistry.RegisterForNavigation<TracksSearchPage, TracksSearchPageViewModel>();
 
             // containerRegistry.RegisterInstance<IApiService>(new ApiService());
         }
