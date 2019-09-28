@@ -11,9 +11,8 @@ namespace SINGIT.Services
     [Headers("Content-Type: application/json")]
     public interface ITracksByArtistsApi
     {
-        [Get("/ws/1.1/track.search?q_artist={q_artist}&s_track_rating=desc&apikey={Config.ApiKey}")]
+        [Get("/ws/1.1/track.search?q_artist={q_artist}&s_track_rating=desc&apikey=aa2ae8cce618bff1f84b172ea0c75787")]
         Task<HttpResponseMessage> GetTracksByArtist(string q_artist);
-
-       
     }
+    
 }

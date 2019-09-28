@@ -11,6 +11,8 @@ namespace SINGIT.Helper
         public const string Cancel = "Cancelar";
         public const string NoInternet = "No tiene conexion a internet";
         public const string PassNoMatch = "Las contraseñas no coinciden.";
-
+        public const string UnableToConnect = "Unable to get data";
+        public const string Ok = "OK";
+        public const string CheckConnection = "Check your internet connection";
     }
 }

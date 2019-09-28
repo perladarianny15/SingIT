@@ -12,6 +12,7 @@ using Plugin.Connectivity;
 using Plugin.Connectivity.Abstractions;
 using Polly;
 using Refit;
+using SINGIT.Helper;
 
 namespace SINGIT.Services
 {
@@ -59,46 +60,53 @@ namespace SINGIT.Services
             new()
         {
             TData data = new TData();
-            if (!IsConnected)
+            try
             {
-                var strngResponse = "There's not a network connection";
-                data.StatusCode = HttpStatusCode.BadRequest;
-                data.Content = new StringContent(strngResponse);
-
-                _userDialogs.Toast(strngResponse, TimeSpan.FromSeconds(1));
-                return data;
-            }
-
-            IsReachable = await _connectivity.IsRemoteReachable(Config.ApiHostName);
-
-            if (!IsReachable)
-            {
-                var strngResponse = "There's not an internet connection";
-                data.StatusCode = HttpStatusCode.BadRequest;
-                data.Content = new StringContent(strngResponse);
-
-                _userDialogs.Toast(strngResponse, TimeSpan.FromSeconds(1));
-                return data;
-            }
-
-            data = await Policy
-            .Handle<WebException>()
-            .Or<ApiException>()
-            .Or<TaskCanceledException>()
-            .WaitAndRetryAsync
-            (
-                retryCount: 1,
-                sleepDurationProvider: retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))
-            )
-            .ExecuteAsync(async () =>
-            {
-                var result = await task;
-                if (result.StatusCode == HttpStatusCode.Unauthorized)
+                if (!IsConnected)
                 {
-                    //Logout the user
+                    var strngResponse = ErrorCodes.NoInternet;
+                    data.StatusCode = HttpStatusCode.BadRequest;
+                    data.Content = new StringContent(strngResponse);
+
+                    _userDialogs.Toast(strngResponse, TimeSpan.FromSeconds(1));
+                    return data;
                 }
-                return result;
-            });
+
+                IsReachable = await _connectivity.IsRemoteReachable(Config.ApiHostName);
+
+                if (!IsReachable)
+                {
+                    var strngResponse = ErrorCodes.NoInternet;
+                    data.StatusCode = HttpStatusCode.BadRequest;
+                    data.Content = new StringContent(strngResponse);
+
+                    _userDialogs.Toast(strngResponse, TimeSpan.FromSeconds(1));
+                    return data;
+                }
+
+                data = await Policy
+                .Handle<WebException>()
+                .Or<ApiException>()
+                .Or<TaskCanceledException>()
+                .WaitAndRetryAsync
+                (
+                    retryCount: 1,
+                    sleepDurationProvider: retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))
+                )
+                .ExecuteAsync(async () =>
+                {
+                    var result = await task;
+                    if (result.StatusCode == HttpStatusCode.Unauthorized)
+                    {
+                    }
+                    return result;
+                });
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            
             return data;
         }
     } 

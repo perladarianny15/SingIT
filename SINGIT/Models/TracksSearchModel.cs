@@ -8,173 +8,60 @@ using Newtonsoft.Json.Converters;
 
 namespace SINGIT.Models
 {
-    public partial class TrackSearchObject
+    public class TracksSearchModel
     {
-        [JsonProperty("message")]
-        public Message Message { get; set; }
-    }
+        public Message message { get; set; }
 
-    public partial class Message
-    {
-        [JsonProperty("header")]
-        public Header Header { get; set; }
 
-        [JsonProperty("body")]
-        public Body Body { get; set; }
-    }
-
-    public partial class Body
-    {
-        [JsonProperty("track_list")]
-        public TrackList[] TrackList { get; set; }
-    }
-
-    public partial class TrackList
-    {
-        [JsonProperty("track")]
-        public Track Track { get; set; }
-    }
-
-    public partial class Track
-    {
-        [JsonProperty("track_id")]
-        public long TrackId { get; set; }
-
-        [JsonProperty("track_name")]
-        public string TrackName { get; set; }
-
-        [JsonProperty("track_name_translation_list")]
-        public TrackNameTranslationList[] TrackNameTranslationList { get; set; }
-
-        [JsonProperty("track_rating")]
-        public long TrackRating { get; set; }
-
-        [JsonProperty("commontrack_id")]
-        public long CommontrackId { get; set; }
-
-        [JsonProperty("instrumental")]
-        public long Instrumental { get; set; }
-
-        [JsonProperty("explicit")]
-        public long Explicit { get; set; }
-
-        [JsonProperty("has_lyrics")]
-        public long HasLyrics { get; set; }
-
-        [JsonProperty("has_subtitles")]
-        public long HasSubtitles { get; set; }
-
-        [JsonProperty("has_richsync")]
-        public long HasRichsync { get; set; }
-
-        [JsonProperty("num_favourite")]
-        public long NumFavourite { get; set; }
-
-        [JsonProperty("album_id")]
-        public long AlbumId { get; set; }
-
-        [JsonProperty("album_name")]
-        public string AlbumName { get; set; }
-
-        [JsonProperty("artist_id")]
-        public long ArtistId { get; set; }
-
-        [JsonProperty("artist_name")]
-        public string ArtistName { get; set; }
-
-        [JsonProperty("track_share_url")]
-        public Uri TrackShareUrl { get; set; }
-
-        [JsonProperty("track_edit_url")]
-        public Uri TrackEditUrl { get; set; }
-
-        [JsonProperty("restricted")]
-        public long Restricted { get; set; }
-
-        [JsonProperty("updated_time")]
-        public DateTimeOffset UpdatedTime { get; set; }
-
-        [JsonProperty("primary_genres")]
-        public PrimaryGenres PrimaryGenres { get; set; }
-    }
-
-    public partial class PrimaryGenres
-    {
-        [JsonProperty("music_genre_list")]
-        public MusicGenreList[] MusicGenreList { get; set; }
-    }
-
-    public partial class MusicGenreList
-    {
-        [JsonProperty("music_genre")]
-        public MusicGenre MusicGenre { get; set; }
-    }
-
-    public partial class MusicGenre
-    {
-        [JsonProperty("music_genre_id")]
-        public long MusicGenreId { get; set; }
-
-        [JsonProperty("music_genre_parent_id")]
-        public long MusicGenreParentId { get; set; }
-
-        [JsonProperty("music_genre_name")]
-        public string MusicGenreName { get; set; }
-
-        [JsonProperty("music_genre_name_extended")]
-        public string MusicGenreNameExtended { get; set; }
-
-        [JsonProperty("music_genre_vanity")]
-        public string MusicGenreVanity { get; set; }
-    }
-
-    public partial class TrackNameTranslationList
-    {
-        [JsonProperty("track_name_translation")]
-        public TrackNameTranslation TrackNameTranslation { get; set; }
-    }
-
-    public partial class TrackNameTranslation
-    {
-        [JsonProperty("language")]
-        public string Language { get; set; }
-
-        [JsonProperty("translation")]
-        public string Translation { get; set; }
-    }
-
-    public partial class Header
-    {
-        [JsonProperty("status_code")]
-        public long StatusCode { get; set; }
-
-        [JsonProperty("execute_time")]
-        public double ExecuteTime { get; set; }
-
-        [JsonProperty("available")]
-        public long Available { get; set; }
-    }
-
-    public partial class TrackSearchObject
-    {
-        public static TrackSearchObject FromJson(string json) => JsonConvert.DeserializeObject<TrackSearchObject>(json, SINGIT.Models.Converter.Settings);
-    }
-
-    public static class Serialize
-    {
-        public static string ToJson(this TrackSearchObject self) => JsonConvert.SerializeObject(self, SINGIT.Models.Converter.Settings);
-    }
-
-    internal static class Converter
-    {
-        public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
+        public class Header
         {
-            MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
-            DateParseHandling = DateParseHandling.None,
-            Converters =
-            {
-                new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
-            },
-        };
+            public int status_code { get; set; }
+            public double execute_time { get; set; }
+            public int available { get; set; }
+        }
+
+        public class PrimaryGenres
+        {
+            public IList<object> music_genre_list { get; set; }
+        }
+
+        public class Track
+        {
+            public int track_id { get; set; }
+            public string track_name { get; set; }
+            public IList<object> track_name_translation_list { get; set; }
+            public int track_rating { get; set; }
+            public int commontrack_id { get; set; }
+            public int instrumental { get; set; }
+            public int explicitid { get; set; }
+            public int has_lyrics { get; set; }
+            public int has_subtitles { get; set; }
+            public int has_richsync { get; set; }
+            public int num_favourite { get; set; }
+            public int album_id { get; set; }
+            public string album_name { get; set; }
+            public int artist_id { get; set; }
+            public string artist_name { get; set; }
+            public string track_share_url { get; set; }
+            public string track_edit_url { get; set; }
+            public int restricted { get; set; }
+            public DateTime updated_time { get; set; }
+            public PrimaryGenres primary_genres { get; set; }
+        }
+        public class TrackList
+        {
+            public Track track { get; set; }
+        }
+
+        public class Body
+        {
+            public IList<TrackList> track_list { get; set; }
+        }
+
+        public class Message
+        {
+            public Header header { get; set; }
+            public Body body { get; set; }
+        }
     }
 }

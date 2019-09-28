@@ -7,8 +7,7 @@ using Xamarin.Forms;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.ComponentModel;
-
-
+using SINGIT.Helper;
 
 namespace SINGIT.ViewModels
 {
@@ -19,8 +18,9 @@ namespace SINGIT.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
         public string q_artist { get; set; }
        
-        public TrackSearchObject ArtistSearchDisplayList { get; set; }
-        public ObservableCollection<TrackSearchObject> Tracks { get; set; }
+        public TracksSearchModel ArtistSearchDisplayList { get; set; }
+        public ObservableCollection<TracksSearchModel> Tracks { get; set; }
+        TracksSearchModel ReturnedMusicData = new TracksSearchModel();
 
         public TracksSearchPageViewModel()
         {
@@ -30,21 +30,27 @@ namespace SINGIT.ViewModels
 
         async Task GetData()
         {
-
-            var tracksResponse = await ApiManager.GetTracksByArtist("Queen");
-
-            if (tracksResponse.IsSuccessStatusCode)
+            try
             {
-                var response = await tracksResponse.Content.ReadAsStringAsync();
-                var json = await Task.Run(() => JsonConvert.DeserializeObject<List<TrackSearchObject>>(response));
-                Tracks = new ObservableCollection<TrackSearchObject>(json);
+
+                var tracksResponse = await ApiManager.GetTracksByArtist("Queen");
+
+                if (tracksResponse.IsSuccessStatusCode)
+                {
+                    var response = await tracksResponse.Content.ReadAsStringAsync();
+                    ReturnedMusicData = await Task.Run(() => JsonConvert.DeserializeObject<TracksSearchModel>(response));
+                    //Tracks = new ObservableCollection<TracksSearchModel>(ReturnedMusicData);
+                }
+                else
+                {
+                    await PageDialog.AlertAsync(ErrorCodes.UnableToConnect, ErrorCodes.Error, ErrorCodes.Ok);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                await PageDialog.AlertAsync("Unable to get data", "Error", "Ok");
+                throw new Exception(ex.Message);
             }
         }
-
 
     }
 }

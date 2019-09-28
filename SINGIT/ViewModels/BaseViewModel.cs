@@ -3,7 +3,9 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
+using SINGIT.Helper;
 using SINGIT.Services;
+using Xamarin.Forms;
 
 namespace SINGIT.ViewModels
 {
@@ -37,7 +39,7 @@ namespace SINGIT.ViewModels
                 IsBusy = false;
                 UserDialogs.Instance.HideLoading();
                 Debug.WriteLine(e.ToString());
-                await App.Current.MainPage.DisplayAlert("Error", "Check your internet connection", "Ok");
+                await Application.Current.MainPage.DisplayAlert(ErrorCodes.Error, ErrorCodes.CheckConnection, ErrorCodes.Ok);
 
             }
             finally

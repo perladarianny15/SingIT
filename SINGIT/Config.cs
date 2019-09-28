@@ -9,7 +9,7 @@ namespace SINGIT
         {
         }
 
-        public static string ApiKey = "";
+        public static string ApiKey = "aa2ae8cce618bff1f84b172ea0c75787";
         public static string ApiUrl = "http://api.musixmatch.com";
         public static string ApiHostName
         {

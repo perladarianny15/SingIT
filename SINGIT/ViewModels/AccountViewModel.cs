@@ -35,6 +35,8 @@ namespace SINGIT.ViewModels
 
         async Task ToLoginPage()
         {
+            //await _navigationService.NavigateAsync("/TracksSearchPage");
+
             await _navigationService.NavigateAsync(NavigationConstants.NavigationConstants.Login);
         }
     }
