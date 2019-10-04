@@ -8,9 +8,7 @@ using Prism.Navigation;
 using Prism.Services;
 using SINGIT.Helper;
 using SINGIT.Models;
-using SINGIT.Views;
-using Xamarin.Essentials;
-using Xamarin.Forms;
+using SQLite;
 
 namespace SINGIT.ViewModels
 {

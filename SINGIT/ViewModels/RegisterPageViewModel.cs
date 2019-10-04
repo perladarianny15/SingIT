@@ -31,7 +31,11 @@ namespace SINGIT.ViewModels
                 {
                     if (ConnectionValidation.HaveInternetConnection())
                     {
-                        await RegisterValidations(registerModel);  
+                       // await RegisterValidations(registerModel);
+                        await App.Database.SaveItemAsync(registerModel);///Added
+                        RegisterModel holamigo= await App.Database.GetUserAsync(0);
+                        int i = 0;
+                        await _navigationService.NavigateAsync(NavigationConstants.NavigationConstants.Home);
                     }
                     else
                         await pageDialogService.DisplayAlertAsync(ErrorCodes.Error, ErrorCodes.NoInternet, ErrorCodes.Cancel);
@@ -70,7 +74,8 @@ namespace SINGIT.ViewModels
             }
             else
             {
-               await ToHomePage();
+                return;
+               //await ToHomePage();
             }
         }
         async Task ToHomePage()
