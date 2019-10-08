@@ -26,10 +26,10 @@
     <Folder Include="ApiEndPoints\" />
     <Folder Include="ApiConfig\" />
     <Folder Include="Resources\" />
-    <Folder Include="NavigationConstants\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Views\SingMainPage.xaml.cs" />
+    <Compile Remove="Models\TrackInformationModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Remove="Views\UserLoginPage.xaml" />

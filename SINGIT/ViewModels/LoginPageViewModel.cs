@@ -14,12 +14,12 @@ using Xamarin.Forms;
 
 namespace SINGIT.ViewModels
 {
-    public class LoginPageViewModel : INotifyPropertyChanged , IInitialize
+    public class LoginPageViewModel : INotifyPropertyChanged
     {
-        public DelegateCommand SaveLoginCommand { get; set; }
+        public DelegateCommand ToHomePageCommand { get; set; }
         public DelegateCommand ToRegisterPageCommand { get; set; }
         protected INavigationService _navigationService;
-        public LoginModel loginModel { get; set; }
+        public LoginModel LoginModel { get; set; }
         public string Result { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -27,15 +27,15 @@ namespace SINGIT.ViewModels
         {
             _navigationService = navigationService;
 
-            loginModel = new LoginModel();
+            LoginModel = new LoginModel();
 
             try
             {
-                SaveLoginCommand = new DelegateCommand(async () =>
+                ToHomePageCommand = new DelegateCommand(async () =>
                 {
                     if (ConnectionValidation.HaveInternetConnection())
                     {
-                        await LoginValidations(loginModel);
+                        await LoginValidations(LoginModel);
                     }
                     else
                         await pageDialogService.DisplayAlertAsync(ErrorCodes.Error, ErrorCodes.NoInternet, ErrorCodes.Cancel);
@@ -56,22 +56,22 @@ namespace SINGIT.ViewModels
 
         async Task ToRegisterPage()
         {
-            await _navigationService.NavigateAsync(NavigationConstants.NavigationConstants.Register);
+            await _navigationService.NavigateAsync(NavigationConstants.Register);
 
         }
 
         async Task ToHomePage()
         {
-            await _navigationService.NavigateAsync(new Uri(NavigationConstants.NavigationConstants.Home, UriKind.Absolute));
+            await _navigationService.NavigateAsync(new Uri(NavigationConstants.Home, UriKind.Absolute));
         }
 
-        async Task LoginValidations(LoginModel login)
+        async Task LoginValidations(LoginModel Login)
         {
-            if (!UserValidations.IsnotEmpty(login.UserName))
+            if (!UserValidations.IsnotEmpty(Login.UserName))
             {
                 Result = ErrorCodes.UserNameRequired;
             }
-            else if (!UserValidations.IsnotEmpty(login.Password))
+            else if (!UserValidations.IsnotEmpty(Login.Password))
             {
                 Result = ErrorCodes.PasswordRequired;
             }
@@ -80,10 +80,6 @@ namespace SINGIT.ViewModels
                 await ToHomePage();
             }
 
-        }
-        public void Initialize(INavigationParameters parameters)
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -16,7 +16,7 @@ namespace SINGIT.ViewModels
     public class RegisterPageViewModel: INotifyPropertyChanged
     {
         public DelegateCommand SaveRegisterCommand { get; set; }
-        public RegisterModel registerModel { get; set; }
+        public RegisterModel RegisterModel { get; set; }
         public string Result { get; set; }
         public string ConfirmPassword { get; set; }
         protected INavigationService _navigationService;
@@ -24,14 +24,16 @@ namespace SINGIT.ViewModels
 
         public RegisterPageViewModel(INavigationService navigationService, IPageDialogService pageDialogService)
         {
-            registerModel = new RegisterModel();
+            _navigationService = navigationService;
+
+            RegisterModel = new RegisterModel();
             try
             {
                 SaveRegisterCommand = new DelegateCommand(async () =>
                 {
                     if (ConnectionValidation.HaveInternetConnection())
                     {
-                        await RegisterValidations(registerModel);  
+                        await RegisterValidations(RegisterModel);  
                     }
                     else
                         await pageDialogService.DisplayAlertAsync(ErrorCodes.Error, ErrorCodes.NoInternet, ErrorCodes.Cancel);
@@ -75,7 +77,7 @@ namespace SINGIT.ViewModels
         }
         async Task ToHomePage()
         {
-            await _navigationService.NavigateAsync(NavigationConstants.NavigationConstants.Home);
+            await _navigationService.NavigateAsync(new Uri(NavigationConstants.Home, UriKind.Absolute));
         }
     }
 }

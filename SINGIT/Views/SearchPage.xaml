@@ -2,8 +2,64 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="SINGIT.Views.SearchPage" BackgroundColor="red">
-    <ContentPage.Content>
-        
-    </ContentPage.Content>
+    Title="Sing it!"
+    x:Class="SINGIT.Views.SearchPage">
+    <ScrollView>
+        <StackLayout>
+            <StackLayout x:Name="segmentStax" Padding="20,15,20,20"/> 
+
+            <SearchBar Placeholder="Search Artist, Album, or Track" SearchCommand="{Binding SearchCommand}"/>
+
+            <Grid VerticalOptions="CenterAndExpand" HorizontalOptions="Center" Margin="30">
+                   <Grid.RowDefinitions>
+                           <RowDefinition/>
+                           <RowDefinition />
+                           <RowDefinition />
+
+                   </Grid.RowDefinitions>
+                   <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                   </Grid.ColumnDefinitions>
+                        <Image x:Name="img1"
+                               Source="pop.png"
+                               Grid.Row="0" Grid.Column="0"
+                               BackgroundColor="#FC466B"
+                               WidthRequest="150"
+                               HeightRequest="150"/>
+                        <Image x:Name="img2"
+                               Source="hiphop.png"
+                               Grid.Row="0" Grid.Column="1"
+                               BackgroundColor="#a224f0"
+                               WidthRequest="150"
+                               HeightRequest="150"/>
+                        <Image x:Name="img3"
+                               Source="jazz.png"
+                               Grid.Row="1" Grid.Column="0"
+                               BackgroundColor="#a224f0"
+                               WidthRequest="150"
+                               HeightRequest="150"/>
+                        <Image x:Name="img4"
+                               Source="rock.png"
+                               Grid.Row="1" Grid.Column="1"
+                               BackgroundColor="#FC466B"
+                               WidthRequest="150"
+                               HeightRequest="150"/>
+                        <Image x:Name="img5"
+                               Source="urban.png"
+                               Grid.Row="2" Grid.Column="0"
+                               BackgroundColor="#FC466B"
+                               WidthRequest="150"
+                               HeightRequest="150"/>
+                         <Image x:Name="img6"
+                               Source="salsa.png"
+                               Grid.Row="2" Grid.Column="1"
+                               BackgroundColor="#a224f0"
+                               WidthRequest="180"
+                               HeightRequest="180"/>
+                </Grid>
+          
+        </StackLayout>
+    </ScrollView>
+   
 </ContentPage>

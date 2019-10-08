@@ -181,5 +181,13 @@
     <BundleResource Include="Resources\search.png" />
     <BundleResource Include="Resources\album.png" />
     <BundleResource Include="Resources\home.png" />
+    <BundleResource Include="Resources\hiphop.png" />
+    <BundleResource Include="Resources\rock.png" />
+    <BundleResource Include="Resources\jazz.png" />
+    <BundleResource Include="Resources\pop.png" />
+    <BundleResource Include="Resources\tropical.JPG" />
+    <BundleResource Include="Resources\romantic.png" />
+    <BundleResource Include="Resources\urban.png" />
+    <BundleResource Include="Resources\salsa.png" />
   </ItemGroup>
 </Project>

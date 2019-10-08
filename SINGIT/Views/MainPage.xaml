@@ -11,7 +11,10 @@
             <Image Source="logopicture.png" WidthRequest="100" HeightRequest="100" Aspect="AspectFit" Margin="30"/>
             <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
                 <Label Text="GET ALL THE LYRICS OF THE SONGS BY FREE"
-                       TextColor="White" FontAttributes="Bold" FontSize="Title" Margin="45"/>
+                       TextColor="White"
+                       FontAttributes="Bold"
+                       FontSize="Title"
+                       Margin="45"/>
                 
                 <Button BackgroundColor="#b74de8" TextColor="white" Text="Login" Padding="10" Margin="20" Command="{Binding ToLoginPageCommand}"/>
                 <Button BackgroundColor="#630a8c" TextColor="white" Text="Register by free" Padding="10" Margin="15" Command="{Binding ToRegisterPageCommand}"/>

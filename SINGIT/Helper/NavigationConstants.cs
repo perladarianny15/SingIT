@@ -1,12 +1,13 @@
 ﻿using System;
-namespace SINGIT.NavigationConstants
+namespace SINGIT.Helper
 {
     public class NavigationConstants
     {
         public static string Login = "LoginPage";
-        public static string Home = "TabbedPage/HomePage";
+        public static string Home = "/HomePage";
         public static string Main = "NavigationPage/MainPage";
         public static string Register = "RegisterPage";
+        public static string TrackPage = "TracksSearchPage";
     }
     public static class NavigationParamConstants
     {

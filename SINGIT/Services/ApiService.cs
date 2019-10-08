@@ -8,17 +8,17 @@ namespace SINGIT.Services
 {
     public class ApiService<T> : IApiService<T>
     {
-        Func<HttpMessageHandler, T> createClient;
-        public ApiService(string apiBaseAddress)
+        Func<HttpMessageHandler, T> CreateClient;
+        public ApiService(string ApiBaseAddress)
         {
-            createClient = messageHandler =>
+            CreateClient = messageHandler =>
             {
-                var client = new HttpClient(messageHandler)
+                var Client = new HttpClient(messageHandler)
                 {
-                    BaseAddress = new Uri(apiBaseAddress)
+                    BaseAddress = new Uri(ApiBaseAddress)
                 };
 
-                return RestService.For<T>(client);
+                return RestService.For<T>(Client);
             };
         }
 
@@ -26,7 +26,7 @@ namespace SINGIT.Services
         {
             get
             {
-                return new Lazy<T>(() => createClient(
+                return new Lazy<T>(() => CreateClient(
                     new RateLimitedHttpMessageHandler(new NativeMessageHandler(), Priority.Background))).Value;
             }
         }
@@ -35,7 +35,7 @@ namespace SINGIT.Services
         {
             get
             {
-                return new Lazy<T>(() => createClient(
+                return new Lazy<T>(() => CreateClient(
               new RateLimitedHttpMessageHandler(new NativeMessageHandler(), Priority.UserInitiated))).Value;
             }
         }
@@ -44,7 +44,7 @@ namespace SINGIT.Services
         {
             get
             {
-                return new Lazy<T>(() => createClient(
+                return new Lazy<T>(() =>CreateClient(
               new RateLimitedHttpMessageHandler(new NativeMessageHandler(), Priority.Speculative))).Value;
             }
         }

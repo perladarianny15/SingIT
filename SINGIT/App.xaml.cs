@@ -2,11 +2,11 @@
 using Prism;
 using Prism.Ioc;
 using Prism.Unity;
+using SINGIT.Helper;
+using SINGIT.Services;
 using SINGIT.ViewModels;
 using SINGIT.Views;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-using SINGIT.NavigationConstants;
 
 namespace SINGIT
 {
@@ -18,7 +18,7 @@ namespace SINGIT
         {
             InitializeComponent();
 
-            NavigationService.NavigateAsync(NavigationConstants.NavigationConstants.Main);
+            NavigationService.NavigateAsync(NavigationConstants.Main);
             
         }
 
@@ -26,13 +26,18 @@ namespace SINGIT
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<TabbedPage>();
-            containerRegistry.RegisterForNavigation<MainPage, AccountViewModel>();
-            containerRegistry.RegisterForNavigation<LoginPage, AccountViewModel>();
+
+            containerRegistry.RegisterForNavigation<MainPage, AccountPageViewModel>();
+            containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
+
             containerRegistry.RegisterForNavigation<HomePage, HomePageViewModel>();
             containerRegistry.RegisterForNavigation<RegisterPage, RegisterPageViewModel>();
             containerRegistry.RegisterForNavigation<TracksSearchPage, TracksSearchPageViewModel>();
+            containerRegistry.RegisterForNavigation<SearchPage, SearchPageViewModel>();
 
-            // containerRegistry.RegisterInstance<IApiService>(new ApiService());
+            containerRegistry.RegisterInstance<IApiService<ITracksByArtistsApi>>(new ApiService<ITracksByArtistsApi>(Config.ApiUrl));
+
+            //containerRegistry.RegisterInstance<IApiService>(new ApiService());
         }
     }
 }

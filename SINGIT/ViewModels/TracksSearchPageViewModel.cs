@@ -11,7 +11,7 @@ using SINGIT.Helper;
 
 namespace SINGIT.ViewModels
 {
-    public class TracksSearchPageViewModel: BaseViewModel,INotifyPropertyChanged
+    public class TracksSearchPageViewModel: BaseViewModel, INotifyPropertyChanged
     {
         
         public  ICommand GetDataCommand { get; set; }

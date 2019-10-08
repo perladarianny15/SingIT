@@ -3,17 +3,19 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Prism.Commands;
 using Prism.Navigation;
+using SINGIT.Helper;
 using SINGIT.Views;
 using Xamarin.Forms;
 
 namespace SINGIT.ViewModels
 {
-    public class AccountViewModel
+    public class AccountPageViewModel
     {
         public DelegateCommand ToLoginPageCommand { get; set; }
         public DelegateCommand ToRegisterPageCommand { get; set; }
         protected INavigationService _navigationService;
-        public AccountViewModel(INavigationService navigationService)
+
+        public AccountPageViewModel(INavigationService navigationService)
         {
             _navigationService = navigationService;
 
@@ -29,15 +31,13 @@ namespace SINGIT.ViewModels
         }
         async Task ToRegisterPage()
         {
-            await _navigationService.NavigateAsync(NavigationConstants.NavigationConstants.Register);
+            await _navigationService.NavigateAsync(new Uri(NavigationConstants.Register, UriKind.Relative));
 
         }
 
         async Task ToLoginPage()
         {
-            //await _navigationService.NavigateAsync("/TracksSearchPage");
-
-            await _navigationService.NavigateAsync(NavigationConstants.NavigationConstants.Login);
+            await _navigationService.NavigateAsync(new Uri(NavigationConstants.Login, UriKind.Relative));
         }
     }
 }

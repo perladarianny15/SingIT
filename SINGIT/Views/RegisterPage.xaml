@@ -9,27 +9,27 @@
                 <Image Source="logopicture.png" WidthRequest="100" HeightRequest="100" Margin="50" Aspect="AspectFit"/>
                 <StackLayout Grid.Row="1" Orientation="Horizontal" Padding="10">
                      <Image Source="User.png"/>
-                     <Entry Placeholder="UserName" Text="{Binding registerModel.UserName}" WidthRequest="230" Margin="5" BackgroundColor="Transparent"/>
+                     <Entry Placeholder="UserName" Text="{Binding RegisterModel.UserName}" WidthRequest="230" Margin="5" BackgroundColor="Transparent"/>
                 </StackLayout>
                 <StackLayout Grid.Row="1" Orientation="Horizontal" Padding="5">
                     <Image Source="Password.png"></Image>
-                    <Entry Placeholder="Password" Text="{Binding registerModel.Password}" WidthRequest="230" IsPassword="True" Margin="5" BackgroundColor="Transparent"/>
+                    <Entry Placeholder="Password" Text="{Binding RegisterModel.Password}" WidthRequest="230" IsPassword="True" Margin="5" BackgroundColor="Transparent"/>
                 </StackLayout>
                 <StackLayout Grid.Row="0" Orientation="Horizontal" Padding="5" TranslationX="40">
                     <Entry Placeholder="Confirm Password" Text="{Binding ConfirmPassword}" WidthRequest="230" IsPassword="True" Margin="5" BackgroundColor="Transparent"/>
                 </StackLayout>
                 <StackLayout Grid.Row="1" Orientation="Horizontal" Padding="5">
                     <Image Source="Email.png"></Image>
-                    <Entry Placeholder="Email" Text="{Binding registerModel.Email}" WidthRequest="230" Keyboard="Email" Margin="5" BackgroundColor="Transparent"/>
+                    <Entry Placeholder="Email" Text="{Binding RegisterModel.Email}" WidthRequest="230" Keyboard="Email" Margin="5" BackgroundColor="Transparent"/>
                 </StackLayout>
                 <StackLayout Grid.Row="1" Orientation="Horizontal" Padding="5">
                     <Image Source="Phone.png"></Image>
-                    <Entry Placeholder="Number" Text="{Binding registerModelw.Number}" WidthRequest="230" Keyboard="Telephone" Margin="5" BackgroundColor="Transparent"/>
+                    <Entry Placeholder="Number" Text="{Binding RegisterModel.Number}" WidthRequest="230" Keyboard="Telephone" Margin="5" BackgroundColor="Transparent"/>
                 </StackLayout>
                 <StackLayout Margin="15">
                      <Button TextColor="White" BackgroundColor="#630a8c" Command="{Binding SaveRegisterCommand}" Text="Register" VerticalOptions="CenterAndExpand"/>
 
-                    <Label Text="{Binding Result, Mode=TwoWay}" TextColor="red" HorizontalOptions="CenterAndExpand"/>
+                    <Label Text="{Binding Result, Mode=TwoWay}" TextColor="Black" HorizontalOptions="CenterAndExpand"/>
                 </StackLayout>
                
             </StackLayout>

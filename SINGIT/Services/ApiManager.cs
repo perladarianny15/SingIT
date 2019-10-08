@@ -18,73 +18,82 @@ namespace SINGIT.Services
 {
     public class ApiManager : IApiManager
     {
-        IUserDialogs _userDialogs = UserDialogs.Instance;
-        IConnectivity _connectivity = CrossConnectivity.Current;
-        IApiService<ITracksByArtistsApi> tracksByArtistApi;
+        IUserDialogs _UserDialogs = UserDialogs.Instance;
+        IConnectivity _Connectivity = CrossConnectivity.Current;
+        IApiService<ITracksByArtistsApi> TracksByArtistApi;
         public bool IsConnected { get; set; }
         public bool IsReachable { get; set; }
-        Dictionary<int, CancellationTokenSource> runningTasks = new Dictionary<int, CancellationTokenSource>();
-        Dictionary<string, Task<HttpResponseMessage>> taskContainer = new Dictionary<string, Task<HttpResponseMessage>>();
+        Dictionary<int, CancellationTokenSource> RunningTasks = new Dictionary<int, CancellationTokenSource>();
+        Dictionary<string, Task<HttpResponseMessage>> TaskContainer = new Dictionary<string, Task<HttpResponseMessage>>();
 
         public ApiManager(IApiService<ITracksByArtistsApi> _trackByArtistApi)
         {
-            tracksByArtistApi = _trackByArtistApi;
-            IsConnected = _connectivity.IsConnected;
-            _connectivity.ConnectivityChanged += OnConnectivityChanged;
+            TracksByArtistApi = _trackByArtistApi;
+            IsConnected = _Connectivity.IsConnected;
+            _Connectivity.ConnectivityChanged += OnConnectivityChanged;
         }
 
         void OnConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
         {
-            IsConnected = e.IsConnected;
-
-            if (!e.IsConnected)
+            try
             {
-                var items = runningTasks.ToList();
-                foreach (var item in items)
+
+                IsConnected = e.IsConnected;
+
+                if (!e.IsConnected)
                 {
-                    item.Value.Cancel();
-                    runningTasks.Remove(item.Key);
+                    var items = RunningTasks.ToList();
+                    foreach (var item in items)
+                    {
+                        item.Value.Cancel();
+                        RunningTasks.Remove(item.Key);
+                    }
                 }
+
+            }catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
         }
+
         public async Task<HttpResponseMessage> GetTracksByArtist (string q_artist)
         {
-            var cts = new CancellationTokenSource();
-            var task = RemoteRequestAsync<HttpResponseMessage>(tracksByArtistApi.GetApi(Priority.UserInitiated).GetTracksByArtist(q_artist));
-            runningTasks.Add(task.Id, cts);
+            var cancellationTokenSource = new CancellationTokenSource();
+            var Task = RemoteRequestAsync<HttpResponseMessage>(TracksByArtistApi.GetApi(Priority.UserInitiated).GetTracksByArtist(q_artist));
+            RunningTasks.Add(Task.Id, cancellationTokenSource);
 
-            return await task;
+            return await Task;
         }
         protected async Task<TData> RemoteRequestAsync<TData>(Task<TData> task)
             where TData:HttpResponseMessage,
             new()
         {
-            TData data = new TData();
+            TData Data = new TData();
             try
             {
                 if (!IsConnected)
                 {
                     var strngResponse = ErrorCodes.NoInternet;
-                    data.StatusCode = HttpStatusCode.BadRequest;
-                    data.Content = new StringContent(strngResponse);
+                    Data.StatusCode = HttpStatusCode.BadRequest;
+                    Data.Content = new StringContent(strngResponse);
 
-                    _userDialogs.Toast(strngResponse, TimeSpan.FromSeconds(1));
-                    return data;
+                    _UserDialogs.Toast(strngResponse, TimeSpan.FromSeconds(1));
+                    return Data;
                 }
 
-                IsReachable = await _connectivity.IsRemoteReachable(Config.ApiHostName);
+                IsReachable = await _Connectivity.IsRemoteReachable(Config.ApiHostName);
 
                 if (!IsReachable)
                 {
-                    var strngResponse = ErrorCodes.NoInternet;
-                    data.StatusCode = HttpStatusCode.BadRequest;
-                    data.Content = new StringContent(strngResponse);
+                    var Response = ErrorCodes.NoInternet;
+                    Data.StatusCode = HttpStatusCode.BadRequest;
+                    Data.Content = new StringContent(Response);
 
-                    _userDialogs.Toast(strngResponse, TimeSpan.FromSeconds(1));
-                    return data;
+                    _UserDialogs.Toast(Response, TimeSpan.FromSeconds(1));
+                    return Data;
                 }
 
-                data = await Policy
+                Data = await Policy
                 .Handle<WebException>()
                 .Or<ApiException>()
                 .Or<TaskCanceledException>()
@@ -95,11 +104,12 @@ namespace SINGIT.Services
                 )
                 .ExecuteAsync(async () =>
                 {
-                    var result = await task;
-                    if (result.StatusCode == HttpStatusCode.Unauthorized)
+                    var Result = await task;
+                    if (Result.StatusCode == HttpStatusCode.Unauthorized)
                     {
+                        throw new Exception(HttpStatusCode.Unauthorized.ToString());
                     }
-                    return result;
+                    return Result;
                 });
             }
             catch(Exception ex)
@@ -107,7 +117,7 @@ namespace SINGIT.Services
                 throw new Exception(ex.Message);
             }
             
-            return data;
+            return Data;
         }
     } 
 }

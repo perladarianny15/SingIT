@@ -10,58 +10,105 @@ namespace SINGIT.Models
 {
     public class TracksSearchModel
     {
-        public Message message { get; set; }
-
-
         public class Header
         {
-            public int status_code { get; set; }
-            public double execute_time { get; set; }
-            public int available { get; set; }
+            [JsonProperty("status_code")]
+            public int Status_code { get; set; }
+
+            [JsonProperty("execute_time")]
+            public double Execute_time { get; set; }
+
+            [JsonProperty("available")]
+            public int Available { get; set; }
         }
 
         public class PrimaryGenres
         {
-            public IList<object> music_genre_list { get; set; }
+            [JsonProperty("available")]
+            public IList<object> MusicGenreList { get; set; }
         }
 
         public class Track
         {
-            public int track_id { get; set; }
-            public string track_name { get; set; }
-            public IList<object> track_name_translation_list { get; set; }
-            public int track_rating { get; set; }
-            public int commontrack_id { get; set; }
-            public int instrumental { get; set; }
-            public int explicitid { get; set; }
-            public int has_lyrics { get; set; }
-            public int has_subtitles { get; set; }
-            public int has_richsync { get; set; }
-            public int num_favourite { get; set; }
-            public int album_id { get; set; }
-            public string album_name { get; set; }
-            public int artist_id { get; set; }
-            public string artist_name { get; set; }
-            public string track_share_url { get; set; }
-            public string track_edit_url { get; set; }
-            public int restricted { get; set; }
-            public DateTime updated_time { get; set; }
-            public PrimaryGenres primary_genres { get; set; }
+            [JsonProperty("track_id")]
+            public int TrackId { get; set; }
+
+            [JsonProperty("track_name")]
+            public string TrackName { get; set; }
+
+            [JsonProperty("track_name_translation_list")]
+            public IList<object> TracknameTranslationList { get; set; }
+
+            [JsonProperty("track_rating")]
+            public int TrackRating { get; set; }
+
+            [JsonProperty("commontrack_id")]
+            public int CommontrackId { get; set; }
+
+            [JsonProperty("instrumental")]
+            public int Instrumental { get; set; }
+
+            [JsonProperty("explicitid")]
+            public int Explicitid { get; set; }
+
+            [JsonProperty("has_lyrics")]
+            public int HasLyrics { get; set; }
+
+            [JsonProperty("has_subtitles")]
+            public int HasSubtitles { get; set; }
+
+            [JsonProperty("has_richsync")]
+            public int HasRichsync { get; set; }
+
+            [JsonProperty("num_favourite")]
+            public int NumFavourite { get; set; }
+
+            [JsonProperty("album_id")]
+            public int AlbumId { get; set; }
+
+            [JsonProperty("album_name")]
+            public string AlbumName { get; set; }
+
+            [JsonProperty("artist_id")]
+            public int ArtistId { get; set; }
+
+            [JsonProperty("artist_name")]
+            public string ArtistName { get; set; }
+
+            [JsonProperty("track_share_url")]
+            public string TrackShareUrl { get; set; }
+
+            [JsonProperty("track_edit_url")]
+            public string TrackEditUrl { get; set; }
+
+            [JsonProperty("restricted")]
+            public int Restricted { get; set; }
+
+            [JsonProperty("updated_time")]
+            public DateTime UpdatedTime { get; set; }
+
+            [JsonProperty("primary_genres")]
+            public PrimaryGenres PrimaryGenres { get; set; }
         }
         public class TrackList
         {
-            public Track track { get; set; }
+            [JsonProperty("track")]
+            public Track Track { get; set; }
         }
 
         public class Body
         {
-            public IList<TrackList> track_list { get; set; }
+            [JsonProperty("track_list")]
+            public IList<TrackList> TrackList { get; set; }
         }
 
         public class Message
         {
-            public Header header { get; set; }
-            public Body body { get; set; }
+            [JsonProperty("header")]
+            public Header Header { get; set; }
+
+            [JsonProperty("body")]
+            public Body Body { get; set; }
         }
     }
 }
