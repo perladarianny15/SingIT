@@ -21,37 +21,37 @@
                         <ColumnDefinition />
                         <ColumnDefinition />
                    </Grid.ColumnDefinitions>
-                        <Image x:Name="img1"
+                        <ImageButton x:Name="img1"
                                Source="pop.png"
                                Grid.Row="0" Grid.Column="0"
                                BackgroundColor="#FC466B"
                                WidthRequest="150"
                                HeightRequest="150"/>
-                        <Image x:Name="img2"
+                        <ImageButton x:Name="img2"
                                Source="hiphop.png"
                                Grid.Row="0" Grid.Column="1"
                                BackgroundColor="#a224f0"
                                WidthRequest="150"
                                HeightRequest="150"/>
-                        <Image x:Name="img3"
+                        <ImageButton x:Name="img3"
                                Source="jazz.png"
                                Grid.Row="1" Grid.Column="0"
                                BackgroundColor="#a224f0"
                                WidthRequest="150"
                                HeightRequest="150"/>
-                        <Image x:Name="img4"
+                        <ImageButton x:Name="img4"
                                Source="rock.png"
                                Grid.Row="1" Grid.Column="1"
                                BackgroundColor="#FC466B"
                                WidthRequest="150"
                                HeightRequest="150"/>
-                        <Image x:Name="img5"
+                        <ImageButton x:Name="img5"
                                Source="urban.png"
                                Grid.Row="2" Grid.Column="0"
                                BackgroundColor="#FC466B"
                                WidthRequest="150"
                                HeightRequest="150"/>
-                         <Image x:Name="img6"
+                         <ImageButton x:Name="img6"
                                Source="salsa.png"
                                Grid.Row="2" Grid.Column="1"
                                BackgroundColor="#a224f0"

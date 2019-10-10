@@ -23,6 +23,7 @@ namespace SINGIT.ViewModels
                 {
                     if (ConnectionValidation.HaveInternetConnection())
                     {
+
                        await pageDialogService.DisplayAlertAsync("OKey", "ok", "ok");
                     }
                     else
