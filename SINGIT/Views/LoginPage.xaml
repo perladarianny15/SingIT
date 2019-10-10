@@ -17,7 +17,7 @@
             </StackLayout>
             <StackLayout>
                <Button TextColor="White" BackgroundColor="#630a8c" Command="{Binding ToHomePageCommand}" Text="Login" VerticalOptions="CenterAndExpand" Margin="10"/>
-               <Button TextColor="Blue" Text="Haven't an account yet?" VerticalOptions="CenterAndExpand" Command="{Binding ToRegisterPageCommand}" />
+               <Button TextColor="Blue" Text="Don't have an account yet?" VerticalOptions="CenterAndExpand" Command="{Binding ToRegisterPageCommand}" />
                <Label Text="{Binding Result, Mode=TwoWay}" TextColor="red" VerticalOptions="CenterAndExpand" FontAttributes="Bold" FontSize="Header"/>
 
             </StackLayout>

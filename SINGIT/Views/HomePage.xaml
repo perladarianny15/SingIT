@@ -4,9 +4,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:SINGIT.Views"
     x:Class="SINGIT.Views.HomePage">
+
     <TabbedPage.Children>
         <local:SearchPage Title="Search" IconImageSource="search.png"/>
-        <local:BibliotecPage Title="Bibliotec" IconImageSource="album.png"/>
+        <local:BibliotecPage Title="Library" IconImageSource="album.png"/>
         <local:FavoritePage Title="Favorite" IconImageSource="favorite.png"/>
+        
     </TabbedPage.Children>
+
+    
 </TabbedPage>

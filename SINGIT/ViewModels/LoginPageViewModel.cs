@@ -1,16 +1,13 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Navigation;
 using Prism.Services;
 using SINGIT.Helper;
 using SINGIT.Models;
-using SINGIT.Views;
-using Xamarin.Essentials;
-using Xamarin.Forms;
+
 
 namespace SINGIT.ViewModels
 {
@@ -77,7 +74,16 @@ namespace SINGIT.ViewModels
             }
             else
             {
-                await ToHomePage();
+                var login = await App.DatabasePath.GetUserAsync(Login.UserName,Login.Password);
+                if (login == null)
+                {
+                    Result = ErrorCodes.IncorrectPassworddOrUsername;
+                }
+                else
+                {
+                    await ToHomePage();
+                }
+                
             }
 
         }
