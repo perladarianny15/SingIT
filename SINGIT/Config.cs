@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using SINGIT.Models;
 
 namespace SINGIT
 {
     public class Config
     {
+        public static RegisterModel CurrentUser;
         public static string ApiKey = "aa2ae8cce618bff1f84b172ea0c75787";
         public static string ApiUrl = "http://api.musixmatch.com";
         public static string ApiHostName

@@ -4,6 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="SINGIT.Views.FavoritePage">
     <ContentPage.Content>
-        
+        <Label x:Name="NameOfUser" Text="buenas"/>
     </ContentPage.Content>
 </ContentPage>

@@ -8,13 +8,16 @@ using Prism.Services;
 using SINGIT.Helper;
 using SINGIT.Models;
 using SINGIT.Views;
-using Xamarin.Essentials;
-using Xamarin.Forms;
+
+using SQLiteNetExtensions;
+using SQLite;
+
 
 namespace SINGIT.ViewModels
 {
     public class RegisterPageViewModel: INotifyPropertyChanged
     {
+        
         public DelegateCommand SaveRegisterCommand { get; set; }
         public RegisterModel RegisterModel { get; set; }
         public string Result { get; set; }
@@ -24,6 +27,7 @@ namespace SINGIT.ViewModels
 
         public RegisterPageViewModel(INavigationService navigationService, IPageDialogService pageDialogService)
         {
+           
             _navigationService = navigationService;
 
             RegisterModel = new RegisterModel();
@@ -77,6 +81,8 @@ namespace SINGIT.ViewModels
         }
         async Task ToHomePage()
         {
+            await  App.DatabasePath.InsertUserAsync(RegisterModel);
+            Config.CurrentUser = RegisterModel;
             await _navigationService.NavigateAsync(new Uri(NavigationConstants.Home, UriKind.Absolute));
         }
     }
