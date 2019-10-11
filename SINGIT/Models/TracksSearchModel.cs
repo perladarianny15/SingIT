@@ -49,6 +49,11 @@ namespace SINGIT.Models
 
             [JsonProperty("first_release_date")]
             public string FirstReleaseDate { get; set; }
+            [JsonProperty("lyrics_id")]
+            public long LyricsId { get; set; }
+
+            [JsonProperty("has_lyrics")]
+            public int HasLyrics { get; set; }
 
             [JsonProperty("track_isrc")]
             public string TrackIsrc { get; set; }

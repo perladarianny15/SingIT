@@ -5,6 +5,7 @@ namespace SINGIT.Helper
     {
         public const string Favorite = "Add to Favorite";
         public const string Options = "Options";
+        public const string SongsInfo = "Song's info";
 
     }
 }

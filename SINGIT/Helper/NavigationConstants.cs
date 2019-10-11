@@ -10,6 +10,7 @@ namespace SINGIT.Helper
         public static string TrackPage = "TracksSearchPage";
         public static string Favorite = "FavoritePage";
 
+        public static string SongPage = "SongPage";
     }
     public static class NavigationParamConstants
     {

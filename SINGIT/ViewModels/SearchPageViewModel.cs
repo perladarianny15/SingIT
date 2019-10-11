@@ -100,12 +100,26 @@ namespace SINGIT.ViewModels
         }
         async void OnSelectItem(Track SelectedItem)
         {
-           string result = await Application.Current.MainPage.DisplayActionSheet(StringStruct.Options, ErrorCodes.Cancel, StringStruct.Favorite);
+           string result = await Application.Current.MainPage.DisplayActionSheet(StringStruct.Options,StringStruct.SongsInfo, ErrorCodes.Cancel, StringStruct.Favorite);
             if(result != null)
             {
                 var navigationParams = new NavigationParameters();
                 navigationParams.Add("SelectedItem", SelectedItem);
                 await _navigationService.NavigateAsync(NavigationConstants.Favorite, navigationParams);
+                switch (result)
+                {
+                    case StringStruct.Options:
+                        break;
+                    case StringStruct.Favorite:
+                        break;
+                    case StringStruct.SongsInfo:
+                        var parameter = new NavigationParameters();
+                        parameter.Add("MyParam",SelectedItem.TrackId);
+                        await _navigationService.NavigateAsync(NavigationConstants.SongPage, parameter); ;
+                        break;
+                }
+                //MessagingCenter.Send<SearchPageViewModel, Track>(this, "SendSelectedItem", SelectedItem);
+
             }
         }
     }
