@@ -68,11 +68,11 @@ namespace SINGIT.ViewModels
                 {
                     try
                     {
-                        var tracksResponse = await ApiManager.GetTracksByArtist(SearchText);
+                        var TracksResponse = await ApiManager.GetTracksByArtist(SearchText);
 
-                        if (tracksResponse.IsSuccessStatusCode)
+                        if (TracksResponse.IsSuccessStatusCode)
                         {
-                            var response = await tracksResponse.Content.ReadAsStringAsync();
+                            var response = await TracksResponse.Content.ReadAsStringAsync();
                             var json = JsonConvert.DeserializeObject<TracksSearchModel>(response);
 
                             foreach (var item in json.message.Body.TrackList)
@@ -83,7 +83,7 @@ namespace SINGIT.ViewModels
                         }
                         else
                         {
-                            await PageDialog.AlertAsync(ErrorCodes.UnableToConnect, ErrorCodes.Error, ErrorCodes.Ok);
+                            await PageDialog.AlertAsync(ErrorCodes.NoDataToShow, ErrorCodes.Error, ErrorCodes.Ok);
                         }
                     }
                     catch (Exception ex)
@@ -103,8 +103,9 @@ namespace SINGIT.ViewModels
            string result = await Application.Current.MainPage.DisplayActionSheet(StringStruct.Options, ErrorCodes.Cancel, StringStruct.Favorite);
             if(result != null)
             {
-                MessagingCenter.Send<SearchPageViewModel, Track>(this, "SendSelectedItem", SelectedItem);
-
+                var navigationParams = new NavigationParameters();
+                navigationParams.Add("SelectedItem", SelectedItem);
+                await _navigationService.NavigateAsync(NavigationConstants.Favorite, navigationParams);
             }
         }
     }

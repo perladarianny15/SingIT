@@ -8,6 +8,8 @@ namespace SINGIT.Helper
         public static string Main = "NavigationPage/MainPage";
         public static string Register = "RegisterPage";
         public static string TrackPage = "TracksSearchPage";
+        public static string Favorite = "FavoritePage";
+
     }
     public static class NavigationParamConstants
     {

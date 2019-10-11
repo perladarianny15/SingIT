@@ -3,7 +3,71 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="SINGIT.Views.FavoritePage">
-    <ContentPage.Content>
-        <Label x:Name="NameOfUser" Text="buenas"/>
-    </ContentPage.Content>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid x:Name="headerGrid" BackgroundColor="#FFEEEEF2" HeightRequest="45">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Label LineBreakMode="NoWrap"
+             Text="Favorites" FontAttributes="Bold"
+             FontSize="16" TextColor="Black" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <Label LineBreakMode="NoWrap" Grid.Column="0"
+             Margin="10,0,0,0" Text="Favorites"
+             FontSize="16" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center"/>
+            
+        </Grid>
+        <ListView x:Name="listView" ItemsSource="{Binding FavoriteList}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                    <Grid RowSpacing="0" ColumnSpacing="0">
+                        <Image Source="pop.png"
+                   Aspect="AspectFill"
+                          MinimumHeightRequest="40" MinimumWidthRequest="40" />
+                        
+                        <Grid VerticalOptions="End" ColumnSpacing="0" Opacity="0.75" BackgroundColor="#CDCDCD">
+                            <Grid.HeightRequest>
+                                <OnPlatform x:TypeArguments="x:Double">
+                                    <OnPlatform.WinPhone>
+                                        <OnIdiom x:TypeArguments="x:Double" Phone="30" Tablet="40" />
+                                    </OnPlatform.WinPhone>
+                                    <OnPlatform.Android>
+                                        <OnIdiom x:TypeArguments="x:Double" Phone="30" Tablet="40" />
+                                    </OnPlatform.Android>
+                                    <OnPlatform.iOS>
+                                        <OnIdiom x:TypeArguments="x:Double" Phone="30" Tablet="40" />
+                                    </OnPlatform.iOS>
+                                </OnPlatform>
+                            </Grid.HeightRequest>
+                            <Label Text="{Binding AlbumName}" TextColor="Black"
+                     VerticalTextAlignment="Center"
+                     Margin="20,0,0,0"
+                     HorizontalTextAlignment="Start">
+                                <Label.FontSize>
+                                    <OnPlatform x:TypeArguments="x:Double">
+                                        <OnPlatform.WinPhone>
+                                            <OnIdiom x:TypeArguments="x:Double" Phone="12" Tablet="18" />
+                                        </OnPlatform.WinPhone>
+                                        <OnPlatform.Android>
+                                            <OnIdiom x:TypeArguments="x:Double" Phone="10" Tablet="15" />
+                                        </OnPlatform.Android>
+                                        <OnPlatform.iOS>
+                                            <OnIdiom x:TypeArguments="x:Double" Phone="10" Tablet="15" />
+                                        </OnPlatform.iOS>
+                                    </OnPlatform>
+                                </Label.FontSize>
+                            </Label>
+                        </Grid>
+                    </Grid>
+                        </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            </ListView>
+    </Grid>
 </ContentPage>
+

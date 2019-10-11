@@ -15,5 +15,6 @@ namespace SINGIT.Helper
         public const string Ok = "OK";
         public const string CheckConnection = "Check your internet connection";
         public const string IncorrectPassworddOrUsername = "Incorrect password or username";
+        public const string NoDataToShow = "The item you searched was not found";
     }
 }

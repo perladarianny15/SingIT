@@ -14,7 +14,7 @@ namespace SINGIT.Data
         {
             database = new SQLiteAsyncConnection(dbPath);
             database.CreateTableAsync<RegisterModel>().Wait();
-            //database.CreateTableAsync<FavoriteSongsModel>().Wait();
+            database.CreateTableAsync<FavoriteSongsModel>().Wait();
 
         }
 
@@ -44,7 +44,13 @@ namespace SINGIT.Data
         {
             return database.DeleteAsync(item);
         }
-        
-        
+        public Task<int> InsertFavoriteSong(RegisterModel user)
+        {
+
+            return database.InsertAsync(user);
+
+        }
+
+
     }
 }

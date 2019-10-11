@@ -42,7 +42,7 @@ namespace SINGIT
 
             containerRegistry.RegisterForNavigation<HomePage, HomePageViewModel>();
             containerRegistry.RegisterForNavigation<RegisterPage, RegisterPageViewModel>();
-            containerRegistry.RegisterForNavigation<TracksSearchPage, TracksSearchPageViewModel>();
+            containerRegistry.RegisterForNavigation<FavoritePage, TracksSearchPageViewModel>();
             containerRegistry.RegisterForNavigation<SearchPage, SearchPageViewModel>();
 
             containerRegistry.RegisterInstance<IApiService<ITracksByArtistsApi>>(new ApiService<ITracksByArtistsApi>(Config.ApiUrl));
