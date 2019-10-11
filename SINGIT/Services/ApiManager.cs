@@ -27,6 +27,7 @@ namespace SINGIT.Services
         IApiService<ITracksByArtistsApi> TracksByArtistApi;
         IApiService<IArtistServices> ArtistService;
         IApiService<IAlbumService> AlbumService;
+        IApiService<ITracksByArtistsApi> TrackByID;
 
 
         public ApiManager(IApiService<ITracksByArtistsApi> _TrackByArtistApi,
@@ -38,6 +39,14 @@ namespace SINGIT.Services
             AlbumService = _albumService;
             IsConnected = _Connectivity.IsConnected;
             _Connectivity.ConnectivityChanged += OnConnectivityChanged;
+        }
+
+        public ApiManager(IApiService<ITracksByArtistsApi> tracksByArtistApi, IApiService<IArtistServices> artistService, IApiService<IAlbumService> albumService, IApiService<ITracksByArtistsApi> trackByID)
+        {
+            TracksByArtistApi = tracksByArtistApi;
+            ArtistService = artistService;
+            AlbumService = albumService;
+            TrackByID = trackByID;
         }
 
         void OnConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
@@ -140,6 +149,15 @@ namespace SINGIT.Services
             }
 
             return Data;
+        }
+
+        public async Task<HttpResponseMessage> GetTrackByID(string TrackID)
+        {
+            var cts = new CancellationTokenSource();
+            var task = RemoteRequestAsync<HttpResponseMessage>(TracksByArtistApi.GetApi(Priority.UserInitiated).GetTrackByID(TrackID));
+            RunningTasks.Add(task.Id, cts);
+
+            return await task;
         }
     }
 }

@@ -53,6 +53,9 @@ namespace SINGIT.Models
             [JsonProperty("explicitid")]
             public int Explicitid { get; set; }
 
+            [JsonProperty("lyrics_id")]
+            public long LyricsId { get; set; }
+
             [JsonProperty("has_lyrics")]
             public int HasLyrics { get; set; }
 

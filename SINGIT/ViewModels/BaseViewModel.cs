@@ -6,11 +6,15 @@ using Acr.UserDialogs;
 using SINGIT.Helper;
 using SINGIT.Services;
 using Xamarin.Forms;
+using SINGIT.Models;
+using System.Windows.Input;
+using System.Threading.Tasks;
 
 namespace SINGIT.ViewModels
 {
     public class BaseViewModel:INotifyPropertyChanged
     {
+      
         public IUserDialogs PageDialog = UserDialogs.Instance;
         public IApiManager ApiManager;
         public event PropertyChangedEventHandler PropertyChanged;
