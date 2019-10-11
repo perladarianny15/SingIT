@@ -111,7 +111,7 @@ namespace SINGIT.ViewModels
                         break;
                     case StringStruct.SongsInfo:
                         var parameter = new NavigationParameters();
-                        parameter.Add("MyParam",SelectedItem.TrackId);
+                        parameter.Add("MyParam", SelectedItem.TrackId);
                         await _navigationService.NavigateAsync(NavigationConstants.SongPage, parameter); ;
                         break;
                 }

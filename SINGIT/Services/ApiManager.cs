@@ -27,7 +27,7 @@ namespace SINGIT.Services
         IApiService<ITracksByArtistsApi> TracksByArtistApi;
         IApiService<IArtistServices> ArtistService;
         IApiService<IAlbumService> AlbumService;
-        IApiService<ITracksByArtistsApi> TrackByID;
+        IApiService<ILyricsServices> LyricsService;
 
 
         public ApiManager(IApiService<ITracksByArtistsApi> _TrackByArtistApi,
@@ -41,12 +41,12 @@ namespace SINGIT.Services
             _Connectivity.ConnectivityChanged += OnConnectivityChanged;
         }
 
-        public ApiManager(IApiService<ITracksByArtistsApi> tracksByArtistApi, IApiService<IArtistServices> artistService, IApiService<IAlbumService> albumService, IApiService<ITracksByArtistsApi> trackByID)
+        public ApiManager(IApiService<ITracksByArtistsApi> tracksByArtistApi, IApiService<IArtistServices> artistService, IApiService<IAlbumService> albumService, IApiService<ILyricsServices> lyrics)
         {
             TracksByArtistApi = tracksByArtistApi;
             ArtistService = artistService;
             AlbumService = albumService;
-            TrackByID = trackByID;
+            LyricsService = lyrics;
         }
 
         void OnConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
@@ -151,10 +151,10 @@ namespace SINGIT.Services
             return Data;
         }
 
-        public async Task<HttpResponseMessage> GetTrackByID(string TrackID)
+        public async Task<HttpResponseMessage> GetLyrics(string TrackID)
         {
             var cts = new CancellationTokenSource();
-            var task = RemoteRequestAsync<HttpResponseMessage>(TracksByArtistApi.GetApi(Priority.UserInitiated).GetTrackByID(TrackID));
+            var task = RemoteRequestAsync<HttpResponseMessage>(LyricsService.GetApi(Priority.UserInitiated).GetLyrics(TrackID));
             RunningTasks.Add(task.Id, cts);
 
             return await task;

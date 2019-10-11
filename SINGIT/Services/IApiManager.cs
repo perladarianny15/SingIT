@@ -9,7 +9,7 @@ namespace SINGIT.Services
         Task<HttpResponseMessage> GetTracksByArtist(string Artist);
         Task<HttpResponseMessage> GetArtist(string ArtistName);
         Task<HttpResponseMessage> GetAlbumByName(string Album);
-        Task<HttpResponseMessage> GetTrackByID(string TrackID);
+        Task<HttpResponseMessage> GetLyrics(string TrackID);
     }
 
 }

@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using static SINGIT.Models.TracksSearchModel;
+using System.Net.Http;
 
 namespace SINGIT.ViewModels
 {
@@ -22,6 +23,7 @@ namespace SINGIT.ViewModels
         TracksSearchModel CurrentSong;
         public DelegateCommand SearchTrackCommand;
         public ObservableCollection<Track> SearchTrackList { get; set; } = new ObservableCollection<Track>();
+        public string Result { get; set; }
         public SongPageViewModel(INavigationService navigationService)
         {
             _navigationService = navigationService;
@@ -38,24 +40,34 @@ namespace SINGIT.ViewModels
         public void OnNavigatedTo(INavigationParameters parameters)
         {
             var element = parameters["MyParam"];
-            SearchTrackCommand = new DelegateCommand(async () => await RunSafe(GetData(element)));
+            string TrackItemString = Convert.ToString(element);
+            SearchTrackCommand = new DelegateCommand(async () => await RunSafe(GetData(TrackItemString)));
+            //Result = "hola";
+         
+
         }
 
-        async Task GetData(object TrackID)
+        public async Task GetData(string TrackItem)
         {
-            string StringTrackID = Convert.ToString(TrackID);
-            var TrackResponse = await ApiManager.GetTrackByID(StringTrackID);
-            if (TrackResponse.IsSuccessStatusCode)
-            {
-                var response = await TrackResponse.Content.ReadAsStringAsync();
-                var json = JsonConvert.DeserializeObject<TracksSearchModel>(response);
-                foreach (var item in json.message.Body.TrackList)
-                {
-                    SearchTrackList.Add(item.Track);
+            var TrackResponse = await ApiManager.GetLyrics(TrackItem);
+            var response = await TrackResponse.Content.ReadAsStringAsync();
+            var json = JsonConvert.DeserializeObject<LyricsModel>(response);
+            Result = json.message.Body.Lyrics.Lyrics_body;
 
-                }
+
+            /*HttpClient httpClient = new HttpClient();
+            var response = await httpClient.GetStringAsync("$https://api.musixmatch.com/ws/1.1/track.lyrics.get?format=jsonp&callback=callback&track_id={TrackItemString}");
+            var json = JsonConvert.DeserializeObject<LyricsModel>(response);
+            Result = json.message.Body.Lyrics.Lyrics_body;
+            if (Result == null)
+            {
+                Result = "No se encontraron las letras para la cancion";
             }
+            return Result;*/
+
 
         }
+
+        
     }
 }

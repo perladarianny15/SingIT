@@ -13,7 +13,7 @@
                     <Image Source="logopicture.png}" WidthRequest="100" HeightRequest="100" Aspect="AspectFit" Margin="30"
                            Grid.Row="0"/>
                 </StackLayout>
-                <Label Text="{Binding SearchTrackList.Track.TrackName}" Grid.Row="1"/>
+                <Label Text="{Binding Result}" Grid.Row="1"/>
                 
                 <StackLayout Grid.Row="2">
                     <Label Text="Album: "/>

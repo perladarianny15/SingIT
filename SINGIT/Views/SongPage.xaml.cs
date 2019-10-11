@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using SINGIT.ViewModels;
 
 namespace SINGIT.Views
 {
@@ -15,6 +16,7 @@ namespace SINGIT.Views
         public SongPage()
         {
             InitializeComponent();
+            
         }
     }
 }
