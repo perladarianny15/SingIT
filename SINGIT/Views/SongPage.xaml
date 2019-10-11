@@ -5,30 +5,105 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="SINGIT.Views.SongPage">
+    <ContentPage.Resources>
+        <Style TargetType="Frame">
+            <Setter Property="BackgroundColor" Value="LightYellow" />
+            <Setter Property="BorderColor" Value="Blue" />
+            <Setter Property="Margin" Value="15" />
+            <Setter Property="CornerRadius" Value="15" />
+
+        </Style>
+
+        <Style TargetType="Label">
+            <Setter Property="Margin" Value="0, 4" />
+        </Style>
+
+        <Style x:Key="headerLabel" TargetType="Label">
+            <Setter Property="Margin" Value="0, 8" />
+            <Setter Property="FontSize" Value="Large" />
+            <Setter Property="TextColor" Value="Blue" />
+        </Style>
+
+        <Style TargetType="Image">
+            <Setter Property="FlexLayout.Order" Value="-1" />
+            <Setter Property="FlexLayout.AlignSelf" Value="Center" />
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="Text" Value="LEARN MORE" />
+            <Setter Property="FontSize" Value="Large" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="BackgroundColor" Value="Green" />
+            <Setter Property="BorderRadius" Value="20" />
+        </Style>
+    </ContentPage.Resources>
+
     <ContentPage.Content>
 
+
         <ScrollView Padding="15" >
+
             <Grid>
                 <StackLayout>
                     <Image Source="logopicture.png}" WidthRequest="100" HeightRequest="100" Aspect="AspectFit" Margin="30"
                            Grid.Row="0"/>
                 </StackLayout>
-                <Label Text="{Binding SearchTrackList.Track.TrackName}" Grid.Row="1"/>
-                
-                <StackLayout Grid.Row="2">
-                    <Label Text="Album: "/>
-                    <Label Text="{Binding SearchTrackList.Track.AlbumName}"/>
-                </StackLayout>
-                <StackLayout Grid.Row="3">
-                    <Label Text="{}"/>
-                  
-                </StackLayout>
-              
+        <FlexLayout>
+            <Frame WidthRequest="300"
+                   HeightRequest="480">
 
-            </Grid>
+                <FlexLayout Direction="Column">
+                    <Label Text="Seated Monkey"
+                           Style="{StaticResource headerLabel}" />
+                    <Label Text="This monkey is laid back and relaxed, and likes to watch the world go by." />
+                    <Label Text="  &#x2022; Doesn't make a lot of noise" />
+                    <Label Text="  &#x2022; Often smiles mysteriously" />
+                    <Label Text="  &#x2022; Sleeps sitting up" />
+                    <Image Source="pop.png"
+                           WidthRequest="180"
+                           HeightRequest="180" />
+                    <Label FlexLayout.Grow="1" />
+                    <Button />
+                </FlexLayout>
+            </Frame>
 
+            <Frame WidthRequest="300"
+                   HeightRequest="480">
 
-        </ScrollView>
+                <FlexLayout Direction="Column">
+                    <Label Text="Banana Monkey"
+                           Style="{StaticResource SearchTrackList.Track.AlbumName}" />
+                    <Label Text="Watch this monkey eat a giant banana." />
+                    <Label Text="  &#x2022; More fun than a barrel of monkeys" />
+                    <Label Text="  &#x2022; Banana not included" />
+                    <Image Source="jazz.png"
+                           WidthRequest="240"
+                           HeightRequest="180" />
+                    <Label FlexLayout.Grow="1" />
+                    <Button />
+                </FlexLayout>
+            </Frame>
+
+            <Frame WidthRequest="300"
+                   HeightRequest="480">
+
+                <FlexLayout Direction="Column">
+                    <Label Text="Face-Palm Monkey"
+                           Style="{StaticResource SearchTrackList.Track.TrackName}" />
+                    <Label Text="This monkey reacts appropriately to ridiculous assertions and actions." />
+                    <Label Text="  &#x2022; Cynical but not unfriendly" />
+                    <Label Text="  &#x2022; Seven varieties of grimaces" />
+                    <Label Text="  &#x2022; Doesn't laugh at your jokes" />
+                    <Image Source="hiphop.png"
+                           WidthRequest="180"
+                           HeightRequest="180" />
+                    <Label FlexLayout.Grow="1" />
+                    <Button />
+                </FlexLayout>
+            </Frame>
+        </FlexLayout>
+                </Grid>
+            </ScrollView>
 
     </ContentPage.Content>
 </ContentPage>

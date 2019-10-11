@@ -11,7 +11,7 @@ namespace SINGIT.Models
         [PrimaryKey]
         public float SongID { get; set; }
 
-        [ForeignKey(typeof(RegisterModel))] //SQLite does not support multiple primary keys
+        [ForeignKey(typeof(RegisterModel))]
         public int UserID { get; set; }
         public string SongName { get; set; }
         public string Artist { get; set; }

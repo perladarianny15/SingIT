@@ -3,71 +3,76 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="SINGIT.Views.FavoritePage">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid x:Name="headerGrid" BackgroundColor="#FFEEEEF2" HeightRequest="45">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-            <Label LineBreakMode="NoWrap"
-             Text="Favorites" FontAttributes="Bold"
-             FontSize="16" TextColor="Black" HorizontalOptions="Center" VerticalOptions="Center"/>
-            <Label LineBreakMode="NoWrap" Grid.Column="0"
-             Margin="10,0,0,0" Text="Favorites"
-             FontSize="16" TextColor="Black" HorizontalOptions="Start" VerticalOptions="Center"/>
-            
-        </Grid>
-        <ListView x:Name="listView" ItemsSource="{Binding FavoriteList}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Order="Primary" Text="Add new Contact" Priority="0" Command="{Binding GoToNewContactCommand}"/>
+    </ContentPage.ToolbarItems>
+             <ListView x:Name="listView" ItemsSource="{Binding FavoriteList}"
+                     SelectionMode="Single" SeparatorVisibility="None" >
+        <ListView.ItemTemplate>
+            <DataTemplate x:Name="selectedItemTemplate">
+                <ViewCell>
+                <ViewCell.ContextActions>
+                      <MenuItem Text="Delete"
+                                Command="{Binding Path=BindingContext.DeleteElementCommand, Source={x:Reference FavoriteList}}"
+                                CommandParameter="{Binding .}"
+                                IsDestructive="True"/>
+                </ViewCell.ContextActions>
+                <Grid x:Name="grid">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="1" />
+                    </Grid.RowDefinitions>
                     <Grid RowSpacing="0" ColumnSpacing="0">
-                        <Image Source="pop.png"
-                   Aspect="AspectFill"
-                          MinimumHeightRequest="40" MinimumWidthRequest="40" />
-                        
-                        <Grid VerticalOptions="End" ColumnSpacing="0" Opacity="0.75" BackgroundColor="#CDCDCD">
-                            <Grid.HeightRequest>
-                                <OnPlatform x:TypeArguments="x:Double">
-                                    <OnPlatform.WinPhone>
-                                        <OnIdiom x:TypeArguments="x:Double" Phone="30" Tablet="40" />
-                                    </OnPlatform.WinPhone>
-                                    <OnPlatform.Android>
-                                        <OnIdiom x:TypeArguments="x:Double" Phone="30" Tablet="40" />
-                                    </OnPlatform.Android>
-                                    <OnPlatform.iOS>
-                                        <OnIdiom x:TypeArguments="x:Double" Phone="30" Tablet="40" />
-                                    </OnPlatform.iOS>
-                                </OnPlatform>
-                            </Grid.HeightRequest>
-                            <Label Text="{Binding AlbumName}" TextColor="Black"
-                     VerticalTextAlignment="Center"
-                     Margin="20,0,0,0"
-                     HorizontalTextAlignment="Start">
-                                <Label.FontSize>
-                                    <OnPlatform x:TypeArguments="x:Double">
-                                        <OnPlatform.WinPhone>
-                                            <OnIdiom x:TypeArguments="x:Double" Phone="12" Tablet="18" />
-                                        </OnPlatform.WinPhone>
-                                        <OnPlatform.Android>
-                                            <OnIdiom x:TypeArguments="x:Double" Phone="10" Tablet="15" />
-                                        </OnPlatform.Android>
-                                        <OnPlatform.iOS>
-                                            <OnIdiom x:TypeArguments="x:Double" Phone="10" Tablet="15" />
-                                        </OnPlatform.iOS>
-                                    </OnPlatform>
-                                </Label.FontSize>
-                            </Label>
-                        </Grid>
-                    </Grid>
-                        </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-            </ListView>
-    </Grid>
-</ContentPage>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
 
+                        <Image Source="pop.png"
+                     HeightRequest="35"
+                     WidthRequest="35"
+                     VerticalOptions="Center"
+                     HorizontalOptions="Center"/>
+
+                        <Grid Grid.Column="1"
+                    RowSpacing="1"
+                    Padding="15,0,0,0"
+                    VerticalOptions="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <Label LineBreakMode="NoWrap"
+                       TextColor="#474747"
+                       Text="{Binding AlbumName}" FontSize="18" />
+                            <Grid RowSpacing="0"
+                      ColumnSpacing="0"
+                      Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Label TextColor="#474747" LineBreakMode="NoWrap"
+                         Text="{Binding ArtistName}" FontSize="12" />
+                                <Label TextColor="#474747" Margin="0,0,10,0"
+                         Grid.Column="1" LineBreakMode="NoWrap" HorizontalTextAlignment="End"
+                         Text="{Binding TrackRating}" FontSize="12" />
+                            </Grid>
+                        </Grid>
+
+                        <Image Grid.Column="2" x:Name="selectionImage" Margin="10,0,10,0"
+                                   HeightRequest="30" WidthRequest="30" VerticalOptions="Center" HorizontalOptions="Center"
+                                   IsVisible="True" Source="favorite.png"/>
+                    </Grid>
+                    <Frame Grid.Row="1" OutlineColor="#E4E4E4" HasShadow="True" HeightRequest="1"/>
+                </Grid>
+                    </ViewCell>
+            </DataTemplate>
+            </ListView.ItemTemplate>
+            
+
+    </ListView>
+ </ContentPage>

@@ -13,55 +13,55 @@
                        Text="{Binding SearchedText, Mode=TwoWay}"
                        SearchCommand="{Binding SearchCommand}"/>
         <ListView x:Name="listView" ItemsSource="{Binding SearchTrackList}"
-                  SeparatorVisibility="None"  SelectedItem="{Binding SelectedItem}" 
+                  SeparatorVisibility="None" SelectedItem="{Binding SelectedItem}" BackgroundColor="#d894ff" 
                      SelectionMode="Single">
             <ListView.ItemTemplate>
                 
             <DataTemplate x:Name="ItemTemplate">
-                <ViewCell Height="50">
+                <ViewCell Height="200">
                     <Grid x:Name="grid" RowSpacing="0" ColumnSpacing="0" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
-                        <RowDefinition Height="1" />
+                        <RowDefinition Height="3" />
                     </Grid.RowDefinitions>
                     <Grid RowSpacing="0" ColumnSpacing="0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition Width="80" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
                         <Image Source="pop.png"
-                     HeightRequest="35"
-                     WidthRequest="35"
+                     HeightRequest="50"
+                     WidthRequest="50"
                      VerticalOptions="Center"
                      HorizontalOptions="Center"/>
 
                         <Grid Grid.Column="1"
-                    RowSpacing="1"
-                    Padding="15,0,0,0"
-                    VerticalOptions="Center">
+                                RowSpacing="6"
+                                Padding="60,0,10,0"
+                                VerticalOptions="Center">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="*" />
+                                <RowDefinition Height="5" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
 
                             <Label LineBreakMode="NoWrap"
-                       TextColor="#474747"
-                       Text="{Binding ArtistName}" FontSize="18" />
-                            <Grid RowSpacing="0"
-                      ColumnSpacing="0"
-                      Grid.Row="1">
+                                   TextColor="#474747"
+                                   Text="{Binding ArtistName}" FontSize="13" />
+                                        <Grid RowSpacing="1"
+                                  ColumnSpacing="0"
+                                  Grid.Row="1">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
                                 <Label TextColor="#474747" LineBreakMode="NoWrap"
-                         Text="{Binding AlbumName}" FontSize="12" />
+                         Text="{Binding AlbumName}" FontSize="20" />
                                 <Label TextColor="#474747" Margin="0,0,10,0"
                          Grid.Column="1" LineBreakMode="NoWrap" HorizontalTextAlignment="End"
-                         Text="{Binding TrackName}" FontSize="12" />
+                         Text="{Binding TrackName}" FontSize="15" />
                             </Grid>
                         </Grid>
                     </Grid>

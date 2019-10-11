@@ -151,13 +151,18 @@ namespace SINGIT.Services
             return Data;
         }
 
-        public async Task<HttpResponseMessage> GetTrackByID(string TrackID)
+        public Task<HttpResponseMessage> GetTrackByID(string TrackID)
         {
-            var cts = new CancellationTokenSource();
-            var task = RemoteRequestAsync<HttpResponseMessage>(TracksByArtistApi.GetApi(Priority.UserInitiated).GetTrackByID(TrackID));
-            RunningTasks.Add(task.Id, cts);
-
-            return await task;
+            throw new NotImplementedException();
         }
+
+        //public async Task<HttpResponseMessage> GetTrackByID(string TrackID)
+        //{
+        //    var cts = new CancellationTokenSource();
+        //    var task = RemoteRequestAsync<HttpResponseMessage>(TracksByArtistApi.GetApi(Priority.UserInitiated).GetTrackByID(TrackID));
+        //    RunningTasks.Add(task.Id, cts);
+
+        //    return await task;
+        //}
     }
 }

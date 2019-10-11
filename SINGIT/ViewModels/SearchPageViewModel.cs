@@ -22,6 +22,7 @@ namespace SINGIT.ViewModels
         TracksSearchModel ReturnedMusicData = new TracksSearchModel();
         public ObservableCollection<Track> SearchTrackList { get; set; } = new ObservableCollection<Track>();
         public DelegateCommand AddToFavoriteCommand { get; set; }
+
         Track _SelectedItem = new Track();
         private string _searchedText;
         public string SearchedText
@@ -100,25 +101,25 @@ namespace SINGIT.ViewModels
         }
         async void OnSelectItem(Track SelectedItem)
         {
-           string result = await Application.Current.MainPage.DisplayActionSheet(StringStruct.Options,StringStruct.SongsInfo, ErrorCodes.Cancel, StringStruct.Favorite);
-            if(result != null)
+           string Result = await Application.Current.MainPage.DisplayActionSheet(StringStruct.Options, StringStruct.SongsInfo, ErrorCodes.Cancel, StringStruct.Favorite);
+            if(Result != null)
             {
-                var navigationParams = new NavigationParameters();
-                navigationParams.Add("SelectedItem", SelectedItem);
-                await _navigationService.NavigateAsync(NavigationConstants.Favorite, navigationParams);
-                switch (result)
+                var parameter = new NavigationParameters();
+
+                switch (Result)
                 {
+
                     case StringStruct.Options:
                         break;
                     case StringStruct.Favorite:
+                        parameter.Add("SelectedItem", SelectedItem);
+                        await _navigationService.NavigateAsync(new Uri(NavigationConstants.Favorite, UriKind.Relative), parameter);
                         break;
                     case StringStruct.SongsInfo:
-                        var parameter = new NavigationParameters();
                         parameter.Add("MyParam",SelectedItem.TrackId);
-                        await _navigationService.NavigateAsync(NavigationConstants.SongPage, parameter); ;
+                        await _navigationService.NavigateAsync(new Uri(NavigationConstants.SongPage, UriKind.Relative), parameter);
                         break;
                 }
-                //MessagingCenter.Send<SearchPageViewModel, Track>(this, "SendSelectedItem", SelectedItem);
 
             }
         }

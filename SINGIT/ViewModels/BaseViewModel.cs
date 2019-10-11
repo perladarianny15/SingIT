@@ -8,7 +8,7 @@ using SINGIT.Services;
 using Xamarin.Forms;
 using SINGIT.Models;
 using System.Windows.Input;
-using System.Threading.Tasks;
+using Prism.Navigation;
 
 namespace SINGIT.ViewModels
 {
@@ -22,12 +22,13 @@ namespace SINGIT.ViewModels
         IApiService<IArtistServices> ArtistService = new ApiService<IArtistServices>(Config.ApiUrl);
         IApiService<IAlbumService> AlbumService = new ApiService<IAlbumService>(Config.ApiUrl);
         public bool IsBusy { get; set; }
+
         public BaseViewModel()
         {
             ApiManager = new ApiManager(TracksByArtistApi, ArtistService, AlbumService);
         }
 
-        public async Task RunSafe(Task task, bool ShowLoading = true, string loadinMessage = null)
+        public async Task RunSafe(Task Task, bool ShowLoading = true, string LoadinMessage = null)
         {
             try
             {
@@ -35,9 +36,9 @@ namespace SINGIT.ViewModels
 
                 IsBusy = true;
 
-                if (ShowLoading) UserDialogs.Instance.ShowLoading(loadinMessage ?? "Loading");
+                if (ShowLoading) UserDialogs.Instance.ShowLoading(LoadinMessage ?? "Loading");
 
-                await task;
+                await Task;
             }
             catch (Exception e)
             {

@@ -14,23 +14,28 @@ using SQLite;
 using Prism.Navigation;
 using Prism.Services;
 using System.Linq;
+using Prism.Commands;
 
 namespace SINGIT.ViewModels
 {
     public class TracksSearchPageViewModel: BaseViewModel, INotifyPropertyChanged, INavigationAware
-    {
-        
-        public  ICommand GetDataCommand { get; set; }
-        public string q_artist { get; set; }
-       
-        public TracksSearchModel ArtistSearchDisplayList { get; set; }
-        public ObservableCollection<FavoriteSongsModel> FavoriteList { get; set; } = new ObservableCollection<FavoriteSongsModel>();
-        FavoriteSongsModel FavoriteSongs { get; set; }
+    {       
+        public ObservableCollection<Track> FavoriteList { get; set; } = new ObservableCollection<Track>();
+        Track track { get; set; }
+        INavigationService _navigationService;
+		public DelegateCommand DeleteElementCommand { get; set; }
 
-        public TracksSearchPageViewModel()
+
+		public TracksSearchPageViewModel(INavigationService navigationService)
         {
-          
-        }
+            _navigationService = navigationService;
+            MessagingCenter.Subscribe<TracksSearchPageViewModel, Track>(this, "SendSelectedItem", ((sender, param) =>
+            {
+                FavoriteList.Add(param);
+                MessagingCenter.Unsubscribe<TracksSearchPageViewModel, Track>(this, "SendSelectedItem");
+            }));
+
+		}
 
         public void OnNavigatedFrom(INavigationParameters parameters)
         {
@@ -43,13 +48,11 @@ namespace SINGIT.ViewModels
             var element = parameters.Where(x => x.Value != null).FirstOrDefault().Value;
             if (element != null)
             {
-                Track track = (Track)(object)element;
+                track = parameters.GetValue<Track>("SelectedItem");
 
-                FavoriteSongs.AlbumName = track.AlbumName;
-                FavoriteSongs.Artist = track.ArtistName;
-                FavoriteSongs.Year = track.FirstReleaseDate;
-                FavoriteList.Add(FavoriteSongs);
             }
+            MessagingCenter.Send<TracksSearchPageViewModel, Track>(this, "SendSelectedItem", track);
+
         }
     }
 }

@@ -38,9 +38,11 @@
   <ItemGroup>
     <Compile Remove="Views\SingMainPage.xaml.cs" />
     <Compile Remove="Models\TrackInformationModel.cs" />
+    <Compile Remove="Views\SearchListPage.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Remove="Views\UserLoginPage.xaml" />
+    <EmbeddedResource Remove="Views\SearchListPage.xaml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Resources\GlobalEs.resx">

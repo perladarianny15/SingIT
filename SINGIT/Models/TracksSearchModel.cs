@@ -109,14 +109,8 @@ namespace SINGIT.Models
             [JsonProperty("subtitle_id")]
             public long SubtitleId { get; set; }
 
-            [JsonProperty("lyrics_id")]
-            public long LyricsId { get; set; }
-
             [JsonProperty("track_spotify_id")]
             public string TrackSpotifyId { get; set; }
-
-            [JsonProperty("has_lyrics")]
-            public long HasLyrics { get; set; }
 
             [JsonProperty("artist_id")]
             public long ArtistId { get; set; }

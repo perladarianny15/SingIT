@@ -13,8 +13,7 @@ namespace SINGIT.Services
     {
         [Get("/ws/1.1/track.search?q_artist={Artist}&s_track_rating=desc&apikey=aa2ae8cce618bff1f84b172ea0c75787")]
         Task<HttpResponseMessage> GetTracksByArtist(string Artist);
-        [Get("/ws/1.1/track.get?apikey=aa2ae8cce618bff1f84b172ea0c75787&callback = callback&track_id={TrackID}")]
-        Task<HttpResponseMessage> GetTrackByID(string TrackID);
+        
     }
     
 }
