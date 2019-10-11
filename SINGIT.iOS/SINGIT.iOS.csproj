@@ -189,5 +189,6 @@
     <BundleResource Include="Resources\romantic.png" />
     <BundleResource Include="Resources\urban.png" />
     <BundleResource Include="Resources\salsa.png" />
+    <BundleResource Include="Resources\ViceCity.jpg" />
   </ItemGroup>
 </Project>

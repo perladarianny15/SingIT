@@ -10,6 +10,8 @@ namespace SINGIT.Models
 {
     public class TracksSearchModel
     {
+        public Message message { get; set; }
+
         public class Header
         {
             [JsonProperty("status_code")]
@@ -109,6 +111,31 @@ namespace SINGIT.Models
 
             [JsonProperty("body")]
             public Body Body { get; set; }
+        }
+        public partial class TrackSearchObject
+        {
+            public static TrackSearchObject FromJson(string json) => JsonConvert.DeserializeObject<TrackSearchObject>(json, Converter.Settings);
+        }
+
+        //public static class Serialize
+        //{
+        //    public static string ToJson(this TrackSearchObject self)
+        //    {
+        //        return JsonConvert.SerializeObject(self, Converter.Settings);
+        //    }
+        //}
+
+        internal static class Converter
+        {
+            public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
+            {
+                MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
+                DateParseHandling = DateParseHandling.None,
+                Converters =
+             {
+                 new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
+             },
+            };
         }
     }
 }

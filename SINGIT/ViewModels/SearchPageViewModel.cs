@@ -1,38 +1,109 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
 using SINGIT.Helper;
+using SINGIT.Models;
+using SINGIT.Services;
+using Xamarin.Forms;
+using static SINGIT.Models.TracksSearchModel;
 
 namespace SINGIT.ViewModels
 {
-    public class SearchPageViewModel : INotifyPropertyChanged
+    public class SearchPageViewModel : BaseViewModel, INotifyPropertyChanged
     {
-
-        public event PropertyChangedEventHandler PropertyChanged;
         protected INavigationService _navigationService;
         public DelegateCommand SearchCommand { get; set; }
+        TracksSearchModel ReturnedMusicData = new TracksSearchModel();
+        public ObservableCollection<Track> SearchTrackList { get; set; } = new ObservableCollection<Track>();
+        public DelegateCommand AddToFavoriteCommand { get; set; }
+        Track _SelectedItem = new Track();
+        private string _searchedText;
+        public string SearchedText
+        {
+            get
+            {
+                return _searchedText;
+            }
+            set
+            {
+                _searchedText = value;
+
+            }
+        }
+        public Track SelectedItem
+        {
+            get
+            {
+                return _SelectedItem;
+            }
+            set
+            {
+                _SelectedItem = value;
+                if(_searchedText!=null)
+                    OnSelectItem(_SelectedItem);
+            }
+        }
 
         public SearchPageViewModel(INavigationService navigationService, IPageDialogService pageDialogService)
         {
             _navigationService = navigationService;
+
             try
             {
-                SearchCommand = new DelegateCommand(async () =>
+                if (ConnectionValidation.HaveInternetConnection())
                 {
-                    if (ConnectionValidation.HaveInternetConnection())
-                    {
-                       await pageDialogService.DisplayAlertAsync("OKey", "ok", "ok");
-                    }
-                    else
-                        await pageDialogService.DisplayAlertAsync(ErrorCodes.Error, ErrorCodes.NoInternet, ErrorCodes.Cancel);
+                    SearchCommand = new DelegateCommand(async () => await RunSafe(GetData(SearchedText)));
+                    
+                }
+                else
+                    pageDialogService.DisplayAlertAsync(ErrorCodes.Error, ErrorCodes.NoInternet, ErrorCodes.Cancel);
 
-                });
+                async Task GetData(string SearchText)
+                {
+                    try
+                    {
+                        var tracksResponse = await ApiManager.GetTracksByArtist(SearchText);
+
+                        if (tracksResponse.IsSuccessStatusCode)
+                        {
+                            var response = await tracksResponse.Content.ReadAsStringAsync();
+                            var json = JsonConvert.DeserializeObject<TracksSearchModel>(response);
+
+                            foreach (var item in json.message.Body.TrackList)
+                            {
+                               SearchTrackList.Add(item.Track);
+                                
+                            }
+                        }
+                        else
+                        {
+                            await PageDialog.AlertAsync(ErrorCodes.UnableToConnect, ErrorCodes.Error, ErrorCodes.Ok);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception(ex.Message);
+                    }
+                }
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
+                throw new Exception(ex.Message);
+            }
+        }
+        async void OnSelectItem(Track SelectedItem)
+        {
+           string result = await Application.Current.MainPage.DisplayActionSheet(StringStruct.Options, ErrorCodes.Cancel, StringStruct.Favorite);
+            if(result != null)
+            {
+                MessagingCenter.Send<SearchPageViewModel, Track>(this, "SendSelectedItem", SelectedItem);
 
             }
         }

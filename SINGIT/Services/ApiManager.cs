@@ -20,15 +20,22 @@ namespace SINGIT.Services
     {
         IUserDialogs _UserDialogs = UserDialogs.Instance;
         IConnectivity _Connectivity = CrossConnectivity.Current;
-        IApiService<ITracksByArtistsApi> TracksByArtistApi;
         public bool IsConnected { get; set; }
         public bool IsReachable { get; set; }
         Dictionary<int, CancellationTokenSource> RunningTasks = new Dictionary<int, CancellationTokenSource>();
         Dictionary<string, Task<HttpResponseMessage>> TaskContainer = new Dictionary<string, Task<HttpResponseMessage>>();
+        IApiService<ITracksByArtistsApi> TracksByArtistApi;
+        IApiService<IArtistServices> ArtistService;
+        IApiService<IAlbumService> AlbumService;
 
-        public ApiManager(IApiService<ITracksByArtistsApi> _trackByArtistApi)
+
+        public ApiManager(IApiService<ITracksByArtistsApi> _TrackByArtistApi,
+            IApiService<IArtistServices> _ArtistServices,
+            IApiService<IAlbumService> _albumService)
         {
-            TracksByArtistApi = _trackByArtistApi;
+            TracksByArtistApi = _TrackByArtistApi;
+            ArtistService = _ArtistServices;
+            AlbumService = _albumService;
             IsConnected = _Connectivity.IsConnected;
             _Connectivity.ConnectivityChanged += OnConnectivityChanged;
         }
@@ -50,13 +57,14 @@ namespace SINGIT.Services
                     }
                 }
 
-            }catch(Exception ex)
+            }
+            catch(Exception ex)
             {
                 throw new Exception(ex.Message);
             }
         }
 
-        public async Task<HttpResponseMessage> GetTracksByArtist (string q_artist)
+        public async Task<HttpResponseMessage> GetTracksByArtist(string q_artist)
         {
             var cancellationTokenSource = new CancellationTokenSource();
             var Task = RemoteRequestAsync<HttpResponseMessage>(TracksByArtistApi.GetApi(Priority.UserInitiated).GetTracksByArtist(q_artist));
@@ -64,8 +72,22 @@ namespace SINGIT.Services
 
             return await Task;
         }
+
+        public async Task<HttpResponseMessage> GetArtist(string ArtistName)
+        {
+            var cancellationTokenSource = new CancellationTokenSource();
+            var Task = RemoteRequestAsync<HttpResponseMessage>(ArtistService.GetApi(Priority.UserInitiated).GetArtistByName(ArtistName));
+            RunningTasks.Add(Task.Id, cancellationTokenSource);
+
+            return await Task;
+        }
+
+        public Task<HttpResponseMessage> GetAlbumByName(string Album)
+        {
+            throw new NotImplementedException();
+        }
         protected async Task<TData> RemoteRequestAsync<TData>(Task<TData> task)
-            where TData:HttpResponseMessage,
+            where TData : HttpResponseMessage,
             new()
         {
             TData Data = new TData();
@@ -112,12 +134,12 @@ namespace SINGIT.Services
                     return Result;
                 });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
-            
+
             return Data;
         }
-    } 
+    }
 }

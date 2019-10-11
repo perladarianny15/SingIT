@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.ComponentModel;
 using SINGIT.Helper;
+using static SINGIT.Models.TracksSearchModel;
 
 namespace SINGIT.ViewModels
 {
@@ -15,7 +16,6 @@ namespace SINGIT.ViewModels
     {
         
         public  ICommand GetDataCommand { get; set; }
-        public event PropertyChangedEventHandler PropertyChanged;
         public string q_artist { get; set; }
        
         public TracksSearchModel ArtistSearchDisplayList { get; set; }
@@ -24,32 +24,10 @@ namespace SINGIT.ViewModels
 
         public TracksSearchPageViewModel()
         {
-            GetDataCommand = new Command(async () => await RunSafe(GetData()));
-            
-        }
-
-        async Task GetData()
-        {
-            try
+            MessagingCenter.Subscribe<SearchPageViewModel, Track>(this, "SendSelectedItem", ((sender, param) =>
             {
-
-                var tracksResponse = await ApiManager.GetTracksByArtist("Queen");
-
-                if (tracksResponse.IsSuccessStatusCode)
-                {
-                    var response = await tracksResponse.Content.ReadAsStringAsync();
-                    ReturnedMusicData = await Task.Run(() => JsonConvert.DeserializeObject<TracksSearchModel>(response));
-                    //Tracks = new ObservableCollection<TracksSearchModel>(ReturnedMusicData);
-                }
-                else
-                {
-                    await PageDialog.AlertAsync(ErrorCodes.UnableToConnect, ErrorCodes.Error, ErrorCodes.Ok);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+                MessagingCenter.Unsubscribe<SearchPageViewModel, Track>(this, "SendContact");
+            }));
         }
 
     }

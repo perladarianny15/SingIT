@@ -20,6 +20,10 @@
     <PackageReference Include="Xamarin.Forms" Version="4.1.0.555618" />
     <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
     <PackageReference Include="Prism.Unity.Forms" Version="7.2.0.1367" />
+    <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="17.3.0.14" />
+    <PackageReference Include="Syncfusion.Xamarin.SfChart" Version="17.3.0.14" />
+    <PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="17.3.0.14" />
+    <PackageReference Include="Syncfusion.Xamarin.DataSource" Version="17.3.0.14" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Helper\" />

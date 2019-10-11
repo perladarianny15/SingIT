@@ -26,6 +26,7 @@ namespace SINGIT
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<TabbedPage>();
+            containerRegistry.RegisterSingleton<IApiManager, ApiManager>();
 
             containerRegistry.RegisterForNavigation<MainPage, AccountPageViewModel>();
             containerRegistry.RegisterForNavigation<LoginPage, LoginPageViewModel>();
@@ -37,7 +38,10 @@ namespace SINGIT
 
             containerRegistry.RegisterInstance<IApiService<ITracksByArtistsApi>>(new ApiService<ITracksByArtistsApi>(Config.ApiUrl));
 
-            //containerRegistry.RegisterInstance<IApiService>(new ApiService());
+
+            containerRegistry.RegisterInstance<IApiService<ITracksByArtistsApi>>(new ApiService<ITracksByArtistsApi>(Config.ApiUrl));
+            containerRegistry.RegisterInstance<IApiService<IArtistServices>>(new ApiService<IArtistServices>(Config.ApiUrl));
+            containerRegistry.RegisterInstance<IApiService<IAlbumService>>(new ApiService<IAlbumService>(Config.ApiUrl));
         }
     }
 }

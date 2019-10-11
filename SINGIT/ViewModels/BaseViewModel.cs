@@ -13,13 +13,14 @@ namespace SINGIT.ViewModels
     {
         public IUserDialogs PageDialog = UserDialogs.Instance;
         public IApiManager ApiManager;
-        IApiService<ITracksByArtistsApi> tracksByArtistApi = new ApiService<ITracksByArtistsApi>(Config.ApiUrl);
         public event PropertyChangedEventHandler PropertyChanged;
-
+        IApiService<ITracksByArtistsApi> TracksByArtistApi = new ApiService<ITracksByArtistsApi>(Config.ApiUrl);
+        IApiService<IArtistServices> ArtistService = new ApiService<IArtistServices>(Config.ApiUrl);
+        IApiService<IAlbumService> AlbumService = new ApiService<IAlbumService>(Config.ApiUrl);
         public bool IsBusy { get; set; }
         public BaseViewModel()
         {
-            ApiManager = new ApiManager(tracksByArtistApi);
+            ApiManager = new ApiManager(TracksByArtistApi, ArtistService, AlbumService);
         }
 
         public async Task RunSafe(Task task, bool ShowLoading = true, string loadinMessage = null)
